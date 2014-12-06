@@ -50,9 +50,22 @@ def contact(request):
         
 def about(request):
     return render(request, "about.html")
-    
+
+def home(request):
+    return render(request, "home.html")
+
+def contact(request):
+    return render(request, "contact.html")
+
+
 def api(request):
     return render(request, "api.html")
     
 def donation(request):
     return render(request, "donation.html")
+
+def login(request):
+    return render(request, "login.html")
+
+def register(request):
+    return render(request, "register.html")

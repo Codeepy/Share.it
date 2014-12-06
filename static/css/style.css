@@ -108,8 +108,11 @@ background-color: #fff;
  HOME SECTION
     ===================================*/
 #home{
-background: url(../img/head.jpg) no-repeat center center;
-padding: 0;
+/*background: url(../img/head.jpg) no-repeat center center;*/
+/*background-color: #DC143C;*/
+    /*background: url(../img/homepic.png) no-repeat center center;*/
+    background-color: #FFB264;
+    padding: 0;
 -webkit-background-size: cover;
 background-size: cover;
 }
@@ -139,7 +142,7 @@ background-size: cover;
        text-align:center;
     }
     #home .overlay {
-              background:rgba(0, 0, 0, 0.7);        
+              /*background:rgba(0, 0, 0, 0.7);       */
         min-height:700px;
     }
     #home h3 {
