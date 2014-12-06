@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    {% load staticfiles %}
     <!--[if IE]>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <![endif]-->
+    <![endif]-->
     <title>ECOSAVE BOOTSTRAP ENVIRONMENT TEMPLATE</title>
     <!--  Bootstrap Style -->
-    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" />
     <!--  Font-Awesome Style -->
     <link href="/static/css/font-awesome.min.css" rel="stylesheet" />
     <!--  Animation Style -->
@@ -50,7 +51,6 @@
         <div class="navbar-collapse collapse move-me">
             <ul class="nav navbar-nav navbar-right">
 
-<<<<<<< HEAD
 {% block head_block %}
 
     <style>
