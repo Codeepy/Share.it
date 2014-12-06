@@ -55,7 +55,6 @@ def home(request):
 def contact(request):
     return render(request, "contact.html")
 
-
 def api(request):
     return render(request, "api.html")
     
