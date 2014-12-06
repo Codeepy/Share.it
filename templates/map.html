@@ -33,6 +33,8 @@
         var infowindow, infowindowLarge;
         var pos, marker, map;
         var defaultZoom = 12;
+        var origins = [];
+        var destinations = [];
 
         function initialize() {
             directionsDisplay = new google.maps.DirectionsRenderer();
@@ -51,7 +53,7 @@
             if(navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+                    origins.push(pos);
                     var icon = '/static/img/marker/you-are-here-2.png';
                     marker = new google.maps.Marker({
                         position: pos,
@@ -88,12 +90,13 @@
                 for (var i = 0; i < results.length; i++) {
                     createMarker(results[i]);
                 }
+                calcDistances();
             }
         }
 
         function createMarker(place) {
             var foodbankPos = place.geometry.location;
-
+            destinations.push(foodbankPos);
 {#            var foodbankPos = new google.maps.LatLng(53.483959, -2.244644);#}
             var foodbankIcon = '/static/img/marker/grocery.png';
             var foodbankMarker = new google.maps.Marker({
@@ -103,12 +106,10 @@
             });
 
             google.maps.event.addListener(foodbankMarker, 'click', function() {
-                directionsDisplay.setMap(map);
 {#                viewAddress(foodbankPos, foodbankMarker);#}
                 viewInfo(foodbankPos, foodbankMarker, place.name);
                 calcRoute(pos, foodbankPos);
-                document.getElementById("directions-panel").style.width = "400px";
-                document.getElementById("close-button").style.display = "block";
+                showRoute();
             });
         }
 
@@ -137,14 +138,14 @@
 
         function viewAddress(pos, marker) {
             getAddress(pos, function(address){
-                infowindow.setContent(address);
+                infowindow.setContent('<b>Your location</b>:\n' + address);
                 infowindow.open(map, marker);
             });
         }
 
         function viewInfo(pos, marker, name) {
             getAddress(pos, function(address) {
-                infowindowLarge.setContent(name + ':\n' + address);
+                infowindowLarge.setContent('<b>' + name + '</b>:\n' + address);
                 infowindowLarge.open(map, marker);
             });
         }
@@ -175,9 +176,47 @@
             var directionsService = new google.maps.DirectionsService();
             directionsService.route(request, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setOptions({ preserveViewport: true });
                     directionsDisplay.setDirections(response);
                 }
             });
+        }
+
+        function calcDistances() {
+            var service = new google.maps.DistanceMatrixService();
+
+            service.getDistanceMatrix(
+            {
+                origins: origins,
+                destinations: destinations,
+                travelMode: google.maps.TravelMode.WALKING,
+                unitSystem: google.maps.UnitSystem.METRIC
+            }, distanceCallback);
+        }
+
+        function distanceCallback(response, status) {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                alert('Error was: ' + status);
+            } else {
+                var nearest, index;
+                for (var i = 0; i < origins.length; i++) {
+                    var results = response.rows[i].elements;
+                    for (var j = 0; j < results.length; j++) {
+                        if (j == 0 || j > 0 && nearest.value > results[j].distance.value) {
+                            nearest = results[j].distance;
+                            index = j;
+                        }
+                    }
+                    calcRoute(origins[0], destinations[index]);
+                    showRoute();
+                }
+            }
+        }
+
+        function showRoute() {
+            directionsDisplay.setMap(map);
+            document.getElementById("directions-panel").style.width = "400px";
+            document.getElementById("close-button").style.display = "block";
         }
 
         function resetView() {
