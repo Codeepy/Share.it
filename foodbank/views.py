@@ -14,9 +14,7 @@ class ContactForm(forms.Form):
     subject = forms.CharField(label='Subject *', max_length=100)
     message = forms.CharField(label='Message *', max_length=4000, widget=forms.Textarea)
     
-def home(request):
-    return render(request, "home.html")
-    
+
 
 def contact(request):
     if request.method == 'POST':
@@ -64,8 +62,13 @@ def api(request):
 def donation(request):
     return render(request, "donation.html")
 
+<<<<<<< HEAD
 def login(request):
     return render(request, "login.html")
 
 def register(request):
     return render(request, "register.html")
+=======
+def map(request):
+    return render(request, "map.html")
+>>>>>>> origin/master

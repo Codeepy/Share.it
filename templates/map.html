@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% block title %}Map{% endblock %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <style>
+        html, body, #map-canvas {
+            height: 630px;
+            margin: 0px;
+            padding: 0px
+        }
+        #panel {
+            float: right;
+        }
+        #directions-panel {
+            height: 600px;
+            font-size: 13px;
+            overflow: auto;
+        }
+        #close-button {
+            display: none;
+            font-size: 16px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <script>
+        var directionsDisplay;
+        var geocoder;
+        var infowindow, infowindowLarge;
+        var pos, marker, map;
+        var defaultZoom = 12;
+        var origins = [];
+        var destinations = [];
+
+        function initialize() {
+            directionsDisplay = new google.maps.DirectionsRenderer();
+            geocoder = new google.maps.Geocoder();
+            var mapOptions = {
+                zoom: defaultZoom
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById('directions-panel'));
+
+            infowindow = new google.maps.InfoWindow({maxWidth: 100});
+            infowindowLarge = new google.maps.InfoWindow({maxWidth: 200});
+
+            // Try HTML5 geolocation
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    origins.push(pos);
+                    var icon = '/static/img/marker/you-are-here-2.png';
+                    marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: icon
+                    });
+
+                    google.maps.event.addListener(marker, 'click', toggleBounce);
+
+                    viewAddress(pos, marker);
+
+                    var request = {
+                        location: pos,
+                        radius: 1000,
+                        query: ['food bank']
+                    };
+                    var service = new google.maps.places.PlacesService(map);
+                    service.textSearch(request, searchFoodBank);
+
+                    map.setCenter(pos);
+                }, function() {
+                    handleNoGeolocation(true);
+                    }
+                );
+            } else {
+                // Browser doesn't support Geolocation
+                handleNoGeolocation(false);
+            }
+        }
+
+        function searchFoodBank(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    createMarker(results[i]);
+                }
+                calcDistances();
+            }
+        }
+
+        function createMarker(place) {
+            var foodbankPos = place.geometry.location;
+            destinations.push(foodbankPos);
+{#            var foodbankPos = new google.maps.LatLng(53.483959, -2.244644);#}
+            var foodbankIcon = '/static/img/marker/grocery.png';
+            var foodbankMarker = new google.maps.Marker({
+                position: foodbankPos,
+                map: map,
+                icon: foodbankIcon
+            });
+
+            google.maps.event.addListener(foodbankMarker, 'click', function() {
+{#                viewAddress(foodbankPos, foodbankMarker);#}
+                viewInfo(foodbankPos, foodbankMarker, place.name);
+                calcRoute(pos, foodbankPos);
+                showRoute();
+            });
+        }
+
+        function toggleBounce() {
+            viewAddress(pos, marker);
+            if (marker.getAnimation() != null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+
+        function getAddress(pos, fn) {
+            geocoder.geocode({'latLng': pos}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        fn(results[1].formatted_address);
+                    } else {
+                        fn('No results found');
+                    }
+                } else {
+                    fn('Geocoder failed due to: ' + status);
+                }
+            });
+        }
+
+        function viewAddress(pos, marker) {
+            getAddress(pos, function(address){
+                infowindow.setContent('<b>Your location</b>:\n' + address);
+                infowindow.open(map, marker);
+            });
+        }
+
+        function viewInfo(pos, marker, name) {
+            getAddress(pos, function(address) {
+                infowindowLarge.setContent('<b>' + name + '</b>:\n' + address);
+                infowindowLarge.open(map, marker);
+            });
+        }
+
+        function handleNoGeolocation(errorFlag) {
+            if (errorFlag) {
+                var content = 'Error: The Geolocation service failed.';
+            } else {
+                var content = 'Error: Your browser doesn\'t support geolocation.';
+            }
+
+            var options = {
+                map: map,
+                position: new google.maps.LatLng(60, 105),
+                content: content
+            };
+
+            var infowindow = new google.maps.InfoWindow(options);
+            map.setCenter(options.position);
+        }
+
+        function calcRoute(start, end) {
+            var request = {
+                origin:start,
+                destination:end,
+                travelMode: google.maps.TravelMode.WALKING
+            };
+            var directionsService = new google.maps.DirectionsService();
+            directionsService.route(request, function(response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setOptions({ preserveViewport: true });
+                    directionsDisplay.setDirections(response);
+                }
+            });
+        }
+
+        function calcDistances() {
+            var service = new google.maps.DistanceMatrixService();
+
+            service.getDistanceMatrix(
+            {
+                origins: origins,
+                destinations: destinations,
+                travelMode: google.maps.TravelMode.WALKING,
+                unitSystem: google.maps.UnitSystem.METRIC
+            }, distanceCallback);
+        }
+
+        function distanceCallback(response, status) {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                alert('Error was: ' + status);
+            } else {
+                var nearest, index;
+                for (var i = 0; i < origins.length; i++) {
+                    var results = response.rows[i].elements;
+                    for (var j = 0; j < results.length; j++) {
+                        if (j == 0 || j > 0 && nearest.value > results[j].distance.value) {
+                            nearest = results[j].distance;
+                            index = j;
+                        }
+                    }
+                    calcRoute(origins[0], destinations[index]);
+                    showRoute();
+                }
+            }
+        }
+
+        function showRoute() {
+            directionsDisplay.setMap(map);
+            document.getElementById("directions-panel").style.width = "400px";
+            document.getElementById("close-button").style.display = "block";
+        }
+
+        function resetView() {
+            document.getElementById("directions-panel").style.width = "0";
+            document.getElementById("close-button").style.display = "none";
+            directionsDisplay.setMap(null);
+            map.setCenter(pos);
+            map.setZoom(defaultZoom);
+            viewAddress(pos, marker);
+        }
+
+        function loadScript() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initialize';
+            document.body.appendChild(script);
+        }
+
+        window.onload = loadScript;
+    </script>
+
+{%  endblock %}
+
+{% block body_block %}
+    <div id="panel">
+        <div id="directions-panel"></div>
+        <button id="close-button" type="button" onclick="resetView()">Close</button>
+    </div>
+    <div id="map-canvas"></div>
+{% endblock %}

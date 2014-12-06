@@ -15,4 +15,5 @@ urlpatterns = patterns('',
     url(r'^login/', views.login, name='login'),
     url(r'^register/', views.register, name='register'),
     url(r'^api/', views.api, name='api'),
+    url(r'^map/', views.map, name='map'),
 )
