@@ -56,3 +56,6 @@ def api(request):
     
 def donation(request):
     return render(request, "donation.html")
+
+def map(request):
+    return render(request, "map.html")

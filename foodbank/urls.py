@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^contact/', views.contact, name='contact'),
     url(r'^donation/', views.about, name='donation'),
     url(r'^api/', views.api, name='api'),
+    url(r'^map/', views.map, name='map'),
 )
