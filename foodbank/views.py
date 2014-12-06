@@ -55,20 +55,17 @@ def home(request):
 def contact(request):
     return render(request, "contact.html")
 
-
 def api(request):
     return render(request, "api.html")
     
 def donation(request):
     return render(request, "donation.html")
 
-<<<<<<< HEAD
 def login(request):
     return render(request, "login.html")
 
 def register(request):
     return render(request, "register.html")
-=======
+
 def map(request):
     return render(request, "map.html")
->>>>>>> origin/master
