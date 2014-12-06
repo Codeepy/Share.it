@@ -11,7 +11,7 @@
     <![endif]-->
     <title>ECOSAVE BOOTSTRAP ENVIRONMENT TEMPLATE</title>
     <!--  Bootstrap Style -->
-    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" />
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
     <!--  Font-Awesome Style -->
     <link href="/static/css/font-awesome.min.css" rel="stylesheet" />
     <!--  Animation Style -->
@@ -50,68 +50,6 @@
         </div>
         <div class="navbar-collapse collapse move-me">
             <ul class="nav navbar-nav navbar-right">
-
-{% block head_block %}
-
-    <style>
-      html, body, #map-canvas {
-        height: 80%;
-        margin: 0px;
-        padding: 0px;
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-    <script>
-        var map;
-        var infowindow;
-
-        function initialize() {
-          var manchester = new google.maps.LatLng(53.483959, -2.244644);
-
-          map = new google.maps.Map(document.getElementById('map-canvas'), {
-            center: manchester,
-            zoom: 14
-          });
-
-          var request = {
-            location: manchester,
-            radius: 500,
-            types: ['food']
-          };
-          infowindow = new google.maps.InfoWindow();
-          var service = new google.maps.places.PlacesService(map);
-          service.nearbySearch(request, callback);
-        }
-
-        function callback(results, status) {
-          if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-              createMarker(results[i]);
-            }
-          }
-        }
-
-        function createMarker(place) {
-          var placeLoc = place.geometry.location;
-          var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
-          });
-
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(place.name);
-            infowindow.open(map, this);
-          });
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-{% endblock %}
-
-{% block body_block %}
-    <div id="map-canvas"></div>
-{% endblock %}
-=======
                 <li >
                     <a href="#home">HOME
 
@@ -365,7 +303,7 @@
 
                                         <h4><i class="fa fa-quote-left"></i>Lorem ipsum dolor sit amet, consectetur adipiscing elit onec molestie non sem vel condimentum. <i class="fa fa-quote-right"></i></h4>
                                         <div class="user-img pull-right">
-                                            <img src="static/img/user2.png" alt="" class="img-circle image-responsive">
+                                            <img src="/static/img/user2.png" alt="" class="img-circle image-responsive">
                                         </div>
                                         <h5 class="pull-right"><strong class="c-black">Lorem Dolor</strong></h5>
                                     </div>
@@ -376,7 +314,7 @@
                                     <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 slide-custom">
                                         <h4><i class="fa fa-quote-left"></i>Aenean faucibus luctus enim. Duis quis sem risu suspend lacinia elementum nunc. <i class="fa fa-quote-right"></i></h4>
                                         <div class="user-img pull-right">
-                                            <img src="assets/img/user.gif" alt="" class="img-circle image-responsive">
+                                            <img src="/static/img/user.gif" alt="" class="img-circle image-responsive">
                                         </div>
                                         <h5 class="pull-right"><strong class="c-black">Faucibus luctus</strong></h5>
                                     </div>
@@ -387,7 +325,7 @@
                                     <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 slide-custom">
                                         <h4><i class="fa fa-quote-left"></i>Sed ultricies, libero ut adipiscing fringilla, ante elit luctus lorem, a egestas dui metus a arcu condimentum. <i class="fa fa-quote-right"></i></h4>
                                         <div class="user-img pull-right">
-                                            <img src="assets/img/user2.png" alt="" class="img-circle image-responsive">
+                                            <img src="/static/img/user2.png" alt="" class="img-circle image-responsive">
                                         </div>
                                         <h5 class="pull-right"><strong class="c-black">Sed ultricies</strong></h5>
                                     </div>
@@ -444,7 +382,7 @@
 
                             PROJECT TITLE HERE
                         </p>
-                        <a class="preview " title="Image Title Here" href="assets/img/portfolio/b.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
+                        <a class="preview " title="Image Title Here" href="/static/img/portfolio/b.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
 
                     </div>
                 </div>
@@ -463,7 +401,7 @@
 
                             PROJECT TITLE HERE
                         </p>
-                        <a class="preview " title="Image Title Here" href="assets/img/portfolio/c.png"><i class="fa fa-search-plus fa-5x"></i></a>
+                        <a class="preview " title="Image Title Here" href="/static/img/portfolio/c.png"><i class="fa fa-search-plus fa-5x"></i></a>
 
                     </div>
                 </div>
@@ -486,7 +424,7 @@
 
                             PROJECT TITLE HERE
                         </p>
-                        <a class="preview  " title="Image Title Here" href="assets/img/portfolio/d.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
+                        <a class="preview  " title="Image Title Here" href="/static/img/portfolio/d.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
 
                     </div>
                 </div>
@@ -505,7 +443,7 @@
 
                             PROJECT TITLE HERE
                         </p>
-                        <a class="preview " title="Image Title Here" href="assets/img/portfolio/e.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
+                        <a class="preview " title="Image Title Here" href="/static/img/portfolio/e.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
 
                     </div>
                 </div>
@@ -524,7 +462,7 @@
 
                             PROJECT TITLE HERE
                         </p>
-                        <a class="preview " title="Image Title Here" href="assets/img/portfolio/h.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
+                        <a class="preview " title="Image Title Here" href="/static/img/portfolio/h.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
 
                     </div>
                 </div>
@@ -648,7 +586,7 @@
 <!--  WOW Script -->
 <script src="static/js/wow.min.js"></script>
 <!--  Scrolling Script -->
-<script src="staticts/js/jquery.easing.min.js"></script>
+<script src="static/js/jquery.easing.min.js"></script>
 <!--  PrettyPhoto Script -->
 <script src="static/js/jquery.prettyPhoto.js"></script>
 <!--  Custom Scripts -->
