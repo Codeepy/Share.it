@@ -62,13 +62,11 @@ def api(request):
 def donation(request):
     return render(request, "donation.html")
 
-<<<<<<< HEAD
 def login(request):
     return render(request, "login.html")
 
 def register(request):
     return render(request, "register.html")
-=======
+
 def map(request):
     return render(request, "map.html")
->>>>>>> origin/master
