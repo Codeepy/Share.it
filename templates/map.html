@@ -342,16 +342,16 @@
 
             function formatEmoticon(text) {
                 return String(text).
-                    replace("B|", '<img src="/static/img/emoticon/Cool.png" style="width:30px" />').
-                    replace(":'(", '<img src="/static/img/emoticon/Cry.png" style="width:30px" />').
-                    replace(":p", '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
-                    replace(":P", '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
-                    replace(":d", '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
-                    replace(":D", '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
-                    replace("<3", '<img src="/static/img/emoticon/Love.png" style="width:30px" />').
-                    replace("o.O", '<img src="/static/img/emoticon/Misdoubt.png" style="width:30px" />').
-                    replace(":(", '<img src="/static/img/emoticon/Sad.png" style="width:30px" />').
-                    replace(":)", '<img src="/static/img/emoticon/Smile.png" style="width:30px" />');
+                    replace(/B\|/g, '<img src="/static/img/emoticon/Cool.png" style="width:30px" />').
+                    replace(/:'\(/g, '<img src="/static/img/emoticon/Cry.png" style="width:30px" />').
+                    replace(/:p/g, '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
+                    replace(/:P/g, '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
+                    replace(/:d/g, '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
+                    replace(/:D/g, '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
+                    replace(/<3/g, '<img src="/static/img/emoticon/Love.png" style="width:30px" />').
+                    replace(/o.O/g, '<img src="/static/img/emoticon/Misdoubt.png" style="width:30px" />').
+                    replace(/:\(/g, '<img src="/static/img/emoticon/Sad.png" style="width:30px" />').
+                    replace(/:\)/g, '<img src="/static/img/emoticon/Smile.png" style="width:30px" />');
             }
         })()
     </script>
