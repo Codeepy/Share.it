@@ -245,7 +245,6 @@
         #box {
             height: 100px;
             overflow: auto;
-            padding-left: 10px;
         }
         .card {
             box-shadow: 0 1px 0 2px rgba(0,0,0,0.1);
@@ -302,14 +301,22 @@
                       <script src=http://cdn.pubnub.com/pubnub.min.js></script>
                       <script>
                           (function(){
-                              var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
+                              var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'foodbank_public';
                               PUBNUB.subscribe({
                                   channel  : channel,
-                                  callback : function(text) { box.innerHTML = (''+text).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML }
+                                  callback : function(text) {
+                                      if (String(text).indexOf('<b style="color:red;">@{{ user.username }}</b>:') > -1)
+                                        box.innerHTML =
+                                                '<div style="text-align:right; color:blue; background-color:#DDD; padding:0 10px;">' +
+                                                String(text).replace('<b style="color:red;">@{{ user.username }}</b>:', '') +
+                                                '</div>' + box.innerHTML
+                                      else
+                                        box.innerHTML = '<div style="padding:0 10px;">' + text + '</div>' + box.innerHTML
+                                  }
                               });
                               PUBNUB.bind( 'keyup', input, function(e) {
                                   (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
-                                      channel : channel, message : '{{ user.username }}: ' + input.value, x : (input.value='')
+                                      channel : channel, message : '<b style="color:red;">@{{ user.username }}</b>: ' + input.value, x : (input.value='')
                                   })
                               } )
                           })()
