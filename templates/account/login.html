@@ -5,9 +5,8 @@
 {% load staticfiles %}
 
 {% block body_block %}
-
-    <section id="login" class="container">
-
+<section id="login" class="container">
+    <div class="padding_top">
         <div class="login" id="login-box">
             <div class="header">Sign In</div>
             <form action="/accounts/login/" method="post">
@@ -33,5 +32,6 @@
                 </div>
             </form>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}

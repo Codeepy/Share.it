@@ -6,7 +6,8 @@
 
 {% block body_block %}
 
-    <section id="registration" class="container">
+<section id="registration" class="container">
+    <div class="padding_top">
         <form data-toggle="validator" {% comment %}id="myForm"{% endcomment %} class="center" role="form" method="post" action="/accounts/register/">
             <fieldset class="registration-form">
                 {% csrf_token %}
@@ -57,7 +58,8 @@
                 </div>
             </fieldset>
         </form>
-    </section><!--/#registration-->
+    </div>
+</section><!--/#registration-->
 
 {% comment %}    {% block script_block %}
 

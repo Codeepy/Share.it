@@ -241,9 +241,13 @@
 {%  endblock %}
 
 {% block body_block %}
-    <div id="panel">
-        <div id="directions-panel"></div>
-        <button id="close-button" type="button" onclick="resetView()">Close</button>
+<section>
+    <div class="padding_top">
+        <div id="panel">
+            <div id="directions-panel"></div>
+            <button id="close-button" type="button" onclick="resetView()">Close</button>
+        </div>
+        <div id="map-canvas"></div>
     </div>
-    <div id="map-canvas"></div>
+</section>
 {% endblock %}
