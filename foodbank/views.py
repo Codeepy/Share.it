@@ -13,8 +13,6 @@ class ContactForm(forms.Form):
     company = forms.CharField(label='Company Name', max_length=50, required=False)
     subject = forms.CharField(label='Subject *', max_length=100)
     message = forms.CharField(label='Message *', max_length=4000, widget=forms.Textarea)
-    
-
 
 def contact(request):
     if request.method == 'POST':

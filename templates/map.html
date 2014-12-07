@@ -7,7 +7,7 @@
 {% block head_block %}
     <style>
         html, body, #map-canvas {
-            height: 630px;
+            height: 435px;
             margin: 0px;
             padding: 0px
         }
@@ -15,7 +15,7 @@
             float: right;
         }
         #directions-panel {
-            height: 600px;
+            height: 400px;
             font-size: 13px;
             overflow: auto;
         }
@@ -237,7 +237,38 @@
 
         window.onload = loadScript;
     </script>
-
+    <style>
+        input {
+            width: 100%;
+            padding-left: 10px;
+        }
+        #box {
+            height: 100px;
+            overflow: auto;
+            padding-left: 10px;
+        }
+        .card {
+            box-shadow: 0 1px 0 2px rgba(0,0,0,0.1);
+            border-radius: 1px;
+            -webkit-transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s;
+        }
+        .padding-top-10 {
+            padding-top: 10px;
+        }
+        .margin-bottom-10 {
+            margin-bottom: 10px !important;
+        }
+        .margin-bottom-20 {
+            margin-bottom: 20px !important;
+        }
+        .margin-top-20 {
+            margin-top: 20px !important;
+        }
+        .white {
+            background-color: #fff;
+        }
+    </style>
 {%  endblock %}
 
 {% block body_block %}
@@ -245,9 +276,55 @@
     <div class="padding_top">
         <div id="panel">
             <div id="directions-panel"></div>
-            <button id="close-button" type="button" onclick="resetView()">Close</button>
+            <button id="close-button" type="button" class="btn btn-danger" onclick="resetView()">Close Route View</button>
         </div>
         <div id="map-canvas"></div>
+        <div class="container">
+            <div class="row margin-top-20 margin-bottom-20">
+                <div class="col-lg-6 col-md-6 padding-top-10">
+                    Click the green button to share food*
+                    <p>
+                        <input id="phone" class="margin-top-20 margin-bottom-10" placeholder="Phone number (required)" />
+                        <input id="address" class="margin-bottom-20" placeholder="Address" />
+                        <button type="submit" class="btn btn-success btn-block btn-lg" onclick="toggleBounce()">I HAVE A FOOD</button>
+                    </p>
+                    <span style="font-size: 11px;">
+                        *By clicking the button you agree to share your location for food distribution purpose.<br>
+                        Please use the latest version of Google Chrome or Mozilla Firefox and allow location sharing.
+                    </span>
+                </div>
+                {% if user and not user.is_anonymous %}
+                <div class="col-lg-6 col-md-6 card padding-top-10" style="background: #FF8000;">
+                      Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
+                      <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
+                      Conversation History
+                      <div id="box" class="white card margin-top-20 margin-bottom-20"></div>
+                      <script src=http://cdn.pubnub.com/pubnub.min.js></script>
+                      <script>
+                          (function(){
+                              var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'chat';
+                              PUBNUB.subscribe({
+                                  channel  : channel,
+                                  callback : function(text) { box.innerHTML = (''+text).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML }
+                              });
+                              PUBNUB.bind( 'keyup', input, function(e) {
+                                  (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
+                                      channel : channel, message : '{{ user.username }}: ' + input.value, x : (input.value='')
+                                  })
+                              } )
+                          })()
+                    </script>
+                </div>
+                {% else %}
+                <div class="col-lg-6 col-md-6 padding-top-10">
+                    Please log in to access chat!
+                    <a href="/account/login/?next={{request.path}}">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">LOGIN</button>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -67,13 +67,13 @@ def login_user(request):
             #if user is not None:
             #    if user.is_active:
             login(request, login_form.get_user())
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect(request.POST.get('next', '/'))
         else:
             print 'invalid'
             print login_form.errors
             return render(request, 'account/login.html', {'form': login_form, 'error': 'true'})
-    print 'GET'
-    return render(request, "account/login.html", {"form": login_form})
+    elif request.GET:
+        return render(request, "account/login.html", {"form": login_form, "next": request.GET.get('next')})
 
 @login_required(login_url='/login/')
 def logout_user(request):
