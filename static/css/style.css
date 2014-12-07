@@ -375,3 +375,11 @@ margin-top: 20px;
 .padding_top {
     padding-top: 60px;
 }
+
+/*Extra Addition*/
+.quoted{
+    -webkit-align-self: center; /* Safari 7.0+ */
+    text-align:  center;
+    font-size: xx-large;
+    color: darkred;
+}
