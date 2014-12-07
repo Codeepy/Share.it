@@ -294,31 +294,47 @@
                 </div>
                 {% if user and not user.is_anonymous %}
                 <div class="col-lg-6 col-md-6 card padding-top-10" style="background: #FF8000;">
-                      Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
-                      <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
-                      <div id="box" class="white card margin-bottom-20"></div>
-                      <script src=http://cdn.pubnub.com/pubnub.min.js></script>
-                      <script>
-                          (function(){
-                              var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'foodbank_public';
-                              PUBNUB.subscribe({
-                                  channel  : channel,
-                                  callback : function(text) {
-                                      if (String(text).indexOf('<b style="color:red;">@{{ user.username }}</b>:') > -1)
-                                        box.innerHTML =
-                                                '<div style="text-align:right; color:blue; background-color:#DDD; padding:0 10px;">' +
-                                                String(text).replace('<b style="color:red;">@{{ user.username }}</b>:', '') +
-                                                '</div>' + box.innerHTML
-                                      else
-                                        box.innerHTML = '<div style="padding:0 10px;">' + text + '</div>' + box.innerHTML
-                                  }
-                              });
-                              PUBNUB.bind( 'keyup', input, function(e) {
-                                  (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
+                    Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
+                    <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
+                    <div id="box" class="white card margin-bottom-20"></div>
+                    <script src=http://cdn.pubnub.com/pubnub.min.js></script>
+                    <script>
+                        (function(){
+                            var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'foodbank_public';
+                            PUBNUB.subscribe({
+                                channel  : channel,
+                                callback : function(text) {
+                                text = formatEmoticon(text);
+                                if (String(text).indexOf('<b style="color:red;">@{{ user.username }}</b>:') > -1)
+                                    box.innerHTML =
+                                        '<div style="text-align:right; color:blue; background-color:#DDD; padding:0 10px;">' +
+                                        String(text).replace('<b style="color:red;">@{{ user.username }}</b>:', '') +
+                                        '</div>' + box.innerHTML
+                                else
+                                    box.innerHTML = '<div style="padding:0 10px;">' + text + '</div>' + box.innerHTML
+                                }
+                            });
+                            PUBNUB.bind( 'keyup', input, function(e) {
+                                (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
                                       channel : channel, message : '<b style="color:red;">@{{ user.username }}</b>: ' + input.value, x : (input.value='')
-                                  })
-                              } )
-                          })()
+                                })
+                            });
+
+                            function formatEmoticon(text) {
+                                return String(text).
+                                    replace("B|", '<img src="/static/img/emoticon/Cool.png" style="width:30px" />').
+                                    replace(":'(", '<img src="/static/img/emoticon/Cry.png" style="width:30px" />').
+                                    replace(":p", '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
+                                    replace(":P", '<img src="/static/img/emoticon/Grimace.png" style="width:30px" />').
+                                    replace(":d", '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
+                                    replace(":D", '<img src="/static/img/emoticon/Haha.png" style="width:30px" />').
+                                    replace("<3", '<img src="/static/img/emoticon/Love.png" style="width:30px" />').
+                                    replace("o.O", '<img src="/static/img/emoticon/Misdoubt.png" style="width:30px" />').
+                                    replace(":(", '<img src="/static/img/emoticon/Sad.png" style="width:30px" />').
+                                    replace(":)", '<img src="/static/img/emoticon/Smile.png" style="width:30px" />')
+                                    ;
+                            }
+                        })()
                     </script>
                 </div>
                 {% else %}
