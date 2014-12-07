@@ -13,6 +13,7 @@
         }
         #panel {
             float: right;
+            background-color: #ffffff;
         }
         #directions-panel {
             height: 400px;
@@ -24,10 +25,6 @@
             font-size: 16px;
             margin: 0 auto;
             width: 100%;
-        }
-        .panel-header{
-            color: darkred;
-            font-size: larger;
         }
     </style>
     <script>
@@ -249,6 +246,7 @@
             height: 150px;
             font-size: 12px;
             overflow: auto;
+            color: black;
         }
         .card {
             box-shadow: 0 1px 0 2px rgba(0,0,0,0.1);
@@ -276,7 +274,6 @@
 
 {% block body_block %}
 <section>
-<div class="main-body">
     <div class="padding_top">
         <div style="background-color: #EEE; padding: 10px;">
             <img src="/static/img/marker/grocery.png" />: Food Bank&nbsp;&nbsp;&nbsp;&nbsp;
@@ -286,26 +283,26 @@
         </div>
         <div id="panel">
             <div id="directions-panel"></div>
-            <button id="close-button" type="button" class="btn btn-danger" onclick="resetView()">Close Route View</button>
+            <button id="close-button" type="button" class="btn btn-default" onclick="resetView()">Close Route View</button>
         </div>
         <div id="map-canvas"></div>
-        <div class="container">
+        <div class="container" style="color:white">
             <div class="row margin-top-20 margin-bottom-20">
                 {% if user and not user.is_anonymous %}
                 <div class="col-lg-6 col-md-6 padding-top-10">
                     Click the green button to share food*
                     <p>
-                        <input id="foodType" class="margin-top-10 margin-bottom-10" placeholder="Please describe your food (required)"  required>
-                        <button id="shareFood" type="submit" class="btn btn-success btn-block btn-lg" onclick="publish();">SHARE IT</button>
+                        <input id="foodType" class="margin-top-10 margin-bottom-10" style="color: #000000" placeholder="Please describe your food (required)"  required>
+                        <button id="shareFood" type="submit" class="btn btn-success btn-block btn-lg" onclick="publish();">SHARE.IT</button>
                     </p>
                     <span style="font-size: 11px;">
                         *By clicking the button you agree to share your location for food distribution purpose.<br>
                         Please use the latest version of Google Chrome and allow the location sharing.
                     </span>
                 </div>
-                <div class="col-lg-6 col-md-6 card padding-top-10" style="background: #FF8000;">
+                <div class="col-lg-6 col-md-6 div-trans padding-top-10" style="margin-top: 10px; color: #ffffff;">
                     Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
-                    <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
+                    <div><input id="input" class="margin-top-20 margin-bottom-20" style="color: #000000" placeholder="Type your message here and press Enter to send" /></div>
                     <div id="box" class="white card margin-bottom-20"></div>
                 </div>
                 {% else %}
@@ -319,7 +316,6 @@
             </div>
         </div>
     </div>
-</div>
 </section>
 {% endblock %}
 
@@ -334,7 +330,7 @@
                 text = formatEmoticon(text);
                 if (String(text).indexOf('<b style="color:red;">@{{ user.username }}</b>:') > -1)
                     box.innerHTML =
-                        '<div style="text-align:right; color:blue; background-color:#DDD; padding:0 10px;">' +
+                        '<div style="text-align:right; color:blue; background-color:#EEE; padding:0 10px;">' +
                         String(text).replace('<b style="color:red;">@{{ user.username }}</b>:', '') +
                         '</div>' + box.innerHTML
                 else
@@ -367,7 +363,7 @@
              if (document.getElementById('foodType').validity.valid) {
                  var shareButton = document.getElementById("shareFood");
 
-                 if (shareButton.innerHTML == "SHARE IT") {
+                 if (shareButton.innerHTML == "SHARE.IT") {
                      shareButton.innerHTML = "STOP SHARING";
 
                      pubnub = PUBNUB.init({
@@ -413,7 +409,7 @@
                      })
                  }
                  else if (shareButton.innerHTML == "STOP SHARING") {
-                     shareButton.innerHTML = "SHARE IT";
+                     shareButton.innerHTML = "SHARE.IT";
                      marker.setAnimation(null);
                  }
              }
