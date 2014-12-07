@@ -175,8 +175,8 @@ background-color: #fff;
     ===================================*/
 
 #about {
-     background-color: #efefef;
-     padding-top: 80px;
+    background-color: #FF8000;
+    padding-top: 80px;
 }
 .big-icon {
     font-size:250px;
@@ -305,7 +305,7 @@ color:#fff;
 #help {
     color:#fff;
 
-      background: url(../img/help.jpg) no-repeat center center;
+      background: url(../img/feedinghungry.jpg) no-repeat center center;
 padding: 0;
 -webkit-background-size: cover;
 background-size: cover;
@@ -329,11 +329,12 @@ margin-top: 20px;
     =====================================================*/
 #contact {
     padding-top:80px;
-    background-color: #efefef;
+    background-color: #FF8000;
 }
 
 #contact .form-control {
-    background-color:transparent;
+    /*background-color:transparent;*/
+    background-color: black;
     height:40px;
 }
 

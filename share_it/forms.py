@@ -66,7 +66,7 @@ class RegistrationForm2(RegistrationForm):
     address_line1 = forms.CharField(label="Address Line1")
     address_line2 = forms.CharField(label="Address Line2", required=False)
     city = forms.CharField(label="City")
-    county = forms.CharField(label="County")
+    country = forms.CharField(label="Country")
     post_code = forms.CharField(label="Postcode")
 
 class RegistrationForm3(RegistrationForm):
@@ -74,7 +74,7 @@ class RegistrationForm3(RegistrationForm):
     address_line1 = forms.CharField(label="Address Line1", required=False)
     address_line2 = forms.CharField(label="Address Line2", required=False)
     city = forms.CharField(label="City", required=False)
-    county = forms.CharField(label="County", required=False)
+    country = forms.CharField(label="Country", required=False)
     post_code = forms.CharField(label="Postcode", required=False)
 
     def clean(self):
@@ -90,7 +90,7 @@ class RegistrationForm3(RegistrationForm):
             print 'yep'
             print cleaned_data.get("address_line1", None)
             if cleaned_data.get("address_line1", None) and  cleaned_data.get("city", None) \
-            and cleaned_data.get("county", None) and  cleaned_data.get("post_code", None):
+            and cleaned_data.get("country", None) and  cleaned_data.get("post_code", None):
                 print 'oo'
                 return self.cleaned_data
             else:
