@@ -335,11 +335,11 @@ background-size: cover;
     }
 
 
-.vedio-style {
-border: 5px solid #159238;
-width: 100%;
-min-height: 300px;
-margin-top: 20px;
+.video-style {
+    border: 5px solid #159238;
+    width: 100%;
+    min-height: 300px;
+    margin-top: 20px;
 }
 /*==========================================
    CONTACT STYLES
