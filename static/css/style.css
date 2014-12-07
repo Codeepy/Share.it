@@ -114,7 +114,7 @@ background-color: #fff;
 }
     #home h1 {
         padding:100px 20px 20px 0px;
-        color:Green;
+        color:Darkred;
         font-size:40px;
         font-weight:900;
 
@@ -142,14 +142,14 @@ background-color: #fff;
         min-height:600px;
     }
     #home h3 {
-        color:#fff;
+        color: #FF8000;
     }
     .div-trans {
         padding-top: 5px;
         background-color: rgba(0, 0, 0, 0.5);
         min-height: 330px;
         margin-top: 120px;
-        color: #fff;
+        color: #FF8000;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
@@ -158,16 +158,25 @@ background-color: #fff;
         .div-trans i {
             margin-left: 10px;
             margin-right: 10px;
-            color: #159238;
+            /*color: #159238;*/
+            color: #ff0000;
         }
         .div-trans span {
-            color: #ff0000;
+            /*color: #ff0000;*/
+            color: #FF8000;
         }
         .div-trans button {
             background-color: #159238;
         }
 #home .form-control {
     background-color:transparent;
+}
+
+/*========================
+Main Body Section
+=========================*/
+.main-body {
+    background-color: white;
 }
 
 /*=====================================
