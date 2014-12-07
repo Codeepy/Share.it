@@ -243,7 +243,8 @@
             padding-left: 10px;
         }
         #box {
-            height: 100px;
+            height: 150px;
+            font-size: 12px;
             overflow: auto;
         }
         .card {
@@ -296,8 +297,7 @@
                 <div class="col-lg-6 col-md-6 card padding-top-10" style="background: #FF8000;">
                       Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
                       <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
-                      Conversation History
-                      <div id="box" class="white card margin-top-20 margin-bottom-20"></div>
+                      <div id="box" class="white card margin-bottom-20"></div>
                       <script src=http://cdn.pubnub.com/pubnub.min.js></script>
                       <script>
                           (function(){
