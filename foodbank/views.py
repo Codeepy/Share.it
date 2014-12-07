@@ -57,7 +57,7 @@ def donation(request):
             email = form.cleaned_data['email']
             amount = form.cleaned_data['amount']
 
-            return HttpResponseRedirect("http://www.justgiving.com/4w350m3/donation/direct/charity/1077897?amount=" +
+            return HttpResponseRedirect("http://www.justgiving.com/4w350m3/donation/direct/charity/2050?amount=" +
                                         str(amount) + "&currency=GBP&reference=shareit" +
                                         "&exitUrl=http%3A%2F%2Fdumbastic.koding.io%2Fdonation%2F%3Fname%3D" + name +
                                         "%26email%3D" + email)
