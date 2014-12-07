@@ -118,7 +118,7 @@ def register_foodbank(request):
             profile = FoodBankProfile.create(user=user,phone_number=registration_form.cleaned_data['phone_number'],
                                              address_line1= registration_form.cleaned_data['address_line1'],
                                              city=registration_form.cleaned_data['city'],
-                                            county=registration_form.cleaned_data['county'],
+                                            country=registration_form.cleaned_data['country'],
                                             post_code=registration_form.cleaned_data['post_code'],
                                             address_line2=registration_form.cleaned_data['address_line2'])
             profile.save()
@@ -147,7 +147,7 @@ def register(request):
             profile = Profile.create(user=user,phone_number=registration_form.cleaned_data['phone_number'],
                                              address_line1= registration_form.cleaned_data['address_line1'],
                                              city=registration_form.cleaned_data['city'],
-                                            county=registration_form.cleaned_data['county'],
+                                            country=registration_form.cleaned_data['country'],
                                             post_code=registration_form.cleaned_data['post_code'],
                                             address_line2=registration_form.cleaned_data['address_line2'])
             profile.save()
