@@ -186,6 +186,7 @@ Main Body Section
 #about {
     background-color: #FF8000;
     padding-top: 80px;
+    color: #ffffff;
 }
 .big-icon {
     font-size:250px;
@@ -339,6 +340,7 @@ margin-top: 20px;
 #contact {
     padding-top:80px;
     background-color: #FF8000;
+    color: #ffffff;
 }
 
 #contact .form-control {
