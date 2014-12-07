@@ -43,13 +43,13 @@ def broadcast(request):
     context = RequestContext(request,
                            {'request': request,
                             'user': request.user})
-    return render_to_response("publish.html", context_instance=context)
+    return render_to_response("account/publish.html", context_instance=context)
 
 def notifications(request):
     context = RequestContext(request,
                            {'request': request,
                             'user': request.user})
-    return render_to_response("subscribe.html", context_instance=context)
+    return render_to_response("account/subscribe.html", context_instance=context)
 
 
 #Login
@@ -71,9 +71,9 @@ def login_user(request):
         else:
             print 'invalid'
             print login_form.errors
-            return render(request, 'login.html', {'form': login_form, 'error': 'true'})
+            return render(request, 'account/login.html', {'form': login_form, 'error': 'true'})
     print 'GET'
-    return render(request, "login.html", {"form": login_form})
+    return render(request, "account/login.html", {"form": login_form})
 
 @login_required(login_url='/login/')
 def logout_user(request):

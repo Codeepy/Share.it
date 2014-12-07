@@ -84,7 +84,7 @@ class RegistrationForm3(RegistrationForm):
         user_group = cleaned_data.get("user_group")
         subject = cleaned_data.get("subject")
         print user_group
-        print  cleaned_data
+        print cleaned_data
         if user_group == Group.objects.get(name='Food Bank'):
             # Only do something if both fields are valid so far.
             print 'yep'
