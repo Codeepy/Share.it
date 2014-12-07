@@ -99,9 +99,9 @@ def register_user(request):
         else:
             print 'invalid'
             print registration_form.errors
-            return render(request, "register_user.html", {'form': registration_form, 'error': 'true'})
+            return render(request, "account/register_user.html", {'form': registration_form, 'error': 'true'})
 
-    return render(request, "register_user.html", {"form": registration_form})
+    return render(request, "account/register_user.html", {"form": registration_form})
 
 def register_foodbank(request):
     print 'Get foodbank'
@@ -127,9 +127,9 @@ def register_foodbank(request):
         else:
             print 'invalid'
             print registration_form.errors
-            return render(request, "register_foodbank.html", {'form': registration_form, 'error': 'true'})
+            return render(request, "account/register_foodbank.html", {'form': registration_form, 'error': 'true'})
 
-    return render(request, "register_foodbank.html", {"form": registration_form})
+    return render(request, "account/register_foodbank.html", {"form": registration_form})
 
 def register(request):
     print 'register'
@@ -156,6 +156,6 @@ def register(request):
         else:
             print 'invalid'
             print registration_form.errors
-            return render(request, "register.html", {'form': registration_form, 'error': 'true'})
+            return render(request, "account/register.html", {'form': registration_form, 'error': 'true'})
 
-    return render(request, "register.html", {"form": registration_form})
+    return render(request, "account/register.html", {"form": registration_form})
