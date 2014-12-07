@@ -278,7 +278,12 @@
 <section>
 <div class="main-body">
     <div class="padding_top">
-        <div class="panel-header"><p><img src="/static/img/marker/grocery.png" />: Food Bank&nbsp;&nbsp;&nbsp;&nbsp; <img src="/static/img/marker/statue-2.png" />: Other Volunteers&nbsp;&nbsp;&nbsp;&nbsp; <img src="/static/img/marker/you-are-here-2.png" />: You</p></div>
+        <div style="background-color: #EEE; padding: 10px;">
+            <img src="/static/img/marker/grocery.png" />: Food Bank&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="/static/img/marker/statue-2.png" />: Other Volunteers&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="/static/img/marker/hotfoodcheckpoint.png" />: Food Broadcast&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="/static/img/marker/you-are-here-2.png" />: You
+        </div>
         <div id="panel">
             <div id="directions-panel"></div>
             <button id="close-button" type="button" class="btn btn-danger" onclick="resetView()">Close Route View</button>
@@ -412,8 +417,7 @@
                      marker.setAnimation(null);
                  }
              }
-             else
-             {
+             else {
                  document.getElementById('foodType').style.border = "1px solid red";
              }
          };
