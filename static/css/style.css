@@ -120,7 +120,7 @@ background-color: #fff;
     background-size: cover;
 }
     #home h1 {
-        padding:100px 20px 20px 0px;
+        padding:20px 20px 20px 0px;
         color:Green;
         font-size:40px;
         font-weight:900;
@@ -379,7 +379,12 @@ margin-top: 20px;
 /*Extra Addition*/
 .quoted{
     -webkit-align-self: center; /* Safari 7.0+ */
+    margin-top: 100px;
+    padding: 10px;
     text-align:  center;
     font-size: xx-large;
-    color: darkred;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
