@@ -9,7 +9,7 @@
     <div class="padding_top">
         <div class="login" id="login-box">
             <div class="header">Sign In</div>
-            <form action="/accounts/login/" method="post">
+            <form action="/account/login/" method="post">
                 <div class="body bg-gray">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
