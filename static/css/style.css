@@ -31,16 +31,16 @@ body {
 }
 
 h2 {
-    color:darkred;
+    color:Green;
     font-weight:900;
 
 }
 h3{
-    color:#ffffff;
+    color:Green;
 
 }
 .new-h4{
-    color:#ffffff;
+    color:Green;
 }
 
 .bold-p{
@@ -121,7 +121,7 @@ background-color: #fff;
 }
     #home h1 {
         padding:100px 20px 20px 0px;
-        color:Darkred;
+        color:Green;
         font-size:40px;
         font-weight:900;
 
@@ -149,7 +149,7 @@ background-color: #fff;
         min-height:600px;
     }
     #home h3 {
-        color: #FF8000;
+        color: Green;
     }
     .div-trans {
         padding-top: 5px;
