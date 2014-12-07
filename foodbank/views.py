@@ -1,38 +1,29 @@
 import smtplib
 
 from django.shortcuts import render
-from django.http import HttpResponse
-
 from django import forms
-from django.db.models import Q, F
 
 class ContactForm(forms.Form):
     name = forms.CharField(label='Name *', max_length=50)
     email = forms.EmailField(label='Email *', max_length=50)
-    phone = forms.CharField(label='Phone', max_length=20, required=False)
-    company = forms.CharField(label='Company Name', max_length=50, required=False)
-    subject = forms.CharField(label='Subject *', max_length=100)
     message = forms.CharField(label='Message *', max_length=4000, widget=forms.Textarea)
 
 def contact(request):
     if request.method == 'POST':
         from django.core.mail import send_mail
+        print "POST ", request.POST
         form = ContactForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
             sender = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            company = form.cleaned_data['company']
-            subject = form.cleaned_data['subject']
+            subject = "Contact Us Form"
 
-            message = "Name: " + name + "\n"
-            message += "Phone: " + phone + "\n"
-            message += "Company: " + company + "\n"
-            message += "\nMessage:\n" + form.cleaned_data['message']
+            message = "From: " + name + " (" + sender + ")\n\n"
+            message += form.cleaned_data['message']
 
-            recipients = ['vispox@hotmail.com']
+            recipients = ['codeepy@gmail.com']
 
-            result = "Your message has been delivered. Thank you for contacting ViSpoX!!"
+            result = "Your message has been delivered. Thank you for contacting SHARE.IT!!"
             try:
                 send_mail(subject, message, sender, recipients)
             except smtplib.SMTPException:
@@ -49,9 +40,6 @@ def about(request):
 
 def home(request):
     return render(request, "home.html")
-
-def contact(request):
-    return render(request, "contact.html")
 
 def api(request):
     return render(request, "api.html")
