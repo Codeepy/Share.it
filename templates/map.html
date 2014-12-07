@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Map{% endblock %}
+{% block title %}Food Bank Network{% endblock %}
 
 {% load staticfiles %}
 
@@ -32,7 +32,7 @@
         var geocoder;
         var infowindow, infowindowLarge;
         var pos, marker, map;
-        var defaultZoom = 12;
+        var defaultZoom = 13;
         var origins = [];
         var destinations = [];
 
@@ -46,7 +46,7 @@
             directionsDisplay.setMap(map);
             directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
-            infowindow = new google.maps.InfoWindow({maxWidth: 100});
+            infowindow = new google.maps.InfoWindow({maxWidth: 200});
             infowindowLarge = new google.maps.InfoWindow({maxWidth: 200});
 
             // Try HTML5 geolocation
