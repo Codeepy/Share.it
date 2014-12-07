@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+{% load css_class_filter %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+<section id="registration" class="container">
+    <div class="padding_top">
+        <form data-toggle="validator" {% comment %}id="myForm"{% endcomment %} class="center" role="form" method="post" action="/account/register/">
+            <fieldset class="registration-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">
+                {{ form.non_field_errors }}
+                {{ form.name_of_field.errors }}</span></div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.user_group.errors }}</span>
+                    </div>
+
+                    <!--input type="text" id="username" name="username" placeholder="Username*" class="form-control"  value="{{ form.username.value|default_if_none:""}}" required-->
+                    {{ form.user_group| add_class:'form-control'}}
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.username.errors }}</span>
+                    </div>
+
+                    <input type="text" id="username" name="username" placeholder="Username*" class="form-control"  value="{{ form.username.value|default_if_none:""}}" required>
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.email.errors }}</span>
+                    </div>
+
+                    <input type="email" id="email" name="email" placeholder="E-mail*" class="form-control" value="{{ form.email.value|default_if_none:""}}" data-error="Bruh, that email address is invalid" required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.password1.errors }}</span>
+                    </div>
+
+                    <input type="password" data-minlength="6" id="password" name="password1" placeholder="Password*" class="form-control" required>
+                    <!--span class="help-block">Minimum of 6 characters</span-->
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.password2.errors }}</span>
+                    </div>
+
+                    <input type="password" id="verify" name="password2" placeholder="Password (Confirm)*" class="form-control" data-match-error="Whoops, these don't match" required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.phone_number.errors }}</span>
+                    </div>
+
+                    <input type="text" id="phone_number" name="phone_number" placeholder="Phone (9999999999)*" class="form-control" value="{{ form.phone_number.value|default_if_none:""}}" required>
+
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.address_line1.errors }}</span>
+                    </div>
+
+                    <input type="text" id="address_line1" name="address_line1" placeholder="Address Line1*" class="form-control" value="{{ form.address_line1.value|default_if_none:""}}" >
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.address_line2.errors }}</span>
+                    </div>
+
+                    <input type="text" id="address_line2" name="address_line2" placeholder="Address Line2" class="form-control" value="{{ form.address_line2.value|default_if_none:""}}">
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.city.errors }}</span>
+                    </div>
+
+                    <input type="text" id="city" name="city" placeholder="City/Town*" class="form-control" value="{{ form.city.value|default_if_none:""}}" >
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.county.errors }}</span>
+                    </div>
+
+                    <input type="text" id="county" name="county" placeholder="County*" class="form-control" value="{{ form.county.value|default_if_none:""}}" >
+                </div>
+                <div class="form-group">
+                    <div class="has-error">
+                        <span class="help-block">{{ form.post_code.errors }}</span>
+                    </div>
+
+                    <input type="text" id="post_code" name="post_code" placeholder="PostCode*" class="form-control" value="{{ form.post_code.value|default_if_none:""}}" >
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-md btn-block">Register</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section><!--/#registration-->
+
+{% comment %}    {% block script_block %}
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#myForm').validator()
+            });
+        </script>
+
+
+    {% endblock %}{% endcomment %}
+{% endblock %}
