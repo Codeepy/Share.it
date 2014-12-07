@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^account/registeruser/', 'share_it.views.register_user', name='register_user'),
     url(r'^account/registerfoodbank/', 'share_it.views.register_foodbank', name='register_foodbank'),
     url(r'^account/register/', 'share_it.views.register', name='register'),
+    url(r'^account/profile/$', 'share_it.views.profile', name='profile'),
     url(r'^account/login/', 'share_it.views.login_user', name='login_user'),
     url(r'^account/logout/', 'share_it.views.logout_user', name='logout_user'),
 )

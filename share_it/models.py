@@ -45,7 +45,7 @@ class FoodBankProfile(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User)
-    phone_regex = RegexValidator(regex=r'^d{9,10}$', message="Phone number must be entered in the format: '999999'. Up to 10 digits allowed.")
+    phone_regex = RegexValidator(regex=r'^\d{10}$', message="Phone number must be entered in the format: '999999'. 10 digits allowed.")
     phone_number = models.CharField(max_length=10,validators=[phone_regex], blank=False) # validators should be a list
     address_line1 = models.CharField(max_length=250, blank=True)
     address_line2 = models.CharField(max_length=250, blank=True)

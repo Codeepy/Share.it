@@ -4,12 +4,12 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 
 # Create your views here.
 from django.template import RequestContext
 from django.contrib.auth.models import User, Group
-from share_it.forms import RegistrationForm, RegistrationForm2, RegistrationForm3
+from share_it.forms import RegistrationForm, RegistrationForm2, RegistrationFormWithAddress, EditRegistrationForm
 from share_it.models import VolunteerProfile, FoodBankProfile, Profile
 
 pubnub = Pubnub(publish_key="pub-c-04ece9e5-b55d-4c71-b157-a43e178af836",
@@ -67,7 +67,7 @@ def login_user(request):
             #if user is not None:
             #    if user.is_active:
             login(request, login_form.get_user())
-            return HttpResponseRedirect(request.POST.get('next', '/'))
+            return HttpResponseRedirect(request.POST.get('next', '/account/profile'))
         else:
             print 'invalid'
             print login_form.errors
@@ -132,14 +132,16 @@ def register_foodbank(request):
 
 def register(request):
     print 'register'
-    registration_form = RegistrationForm3()
+    registration_form = RegistrationFormWithAddress()
     if request.POST:
-        registration_form = RegistrationForm3(request.POST)
+        registration_form = RegistrationFormWithAddress(request.POST)
         if registration_form.is_valid():
             print 'valid'
             user = User.objects.create_user(username=registration_form.cleaned_data['username'],
                                             email=registration_form.cleaned_data['email'],
-                                            password=registration_form.cleaned_data['password1'])
+                                            password=registration_form.cleaned_data['password1'],
+                                            first_name=registration_form.cleaned_data['first_name'],
+                                            last_name=registration_form.cleaned_data['last_name'])
             user.save()
             #group = Group.objects.get(name='Volunteer')
             group = registration_form.cleaned_data['user_group']
@@ -158,3 +160,44 @@ def register(request):
             return render(request, "account/register.html", {'form': registration_form, 'error': 'true'})
 
     return render(request, "account/register.html", {"form": registration_form})
+
+@login_required
+def profile(request):
+    print 'member'
+    if request.user.is_authenticated():
+        user = request.user
+        profile = get_object_or_404(Profile, user=user)
+        print profile
+        #check if std_profile exist!! it should.
+    if request.POST:
+        print 'POST'
+        profile_form = EditRegistrationForm(request.POST)
+        print profile_form
+        #profile_form.fields['email'].widget.attrs['readonly'] = True
+        if profile_form.is_valid():
+            print 'Valid'
+            #Not pythonic; There should be a better way to do this!! Read about ModelForms and Formsets
+            user.first_name=profile_form.cleaned_data['first_name']
+            user.last_name = profile_form.cleaned_data['last_name']
+            user.save(update_fields=['first_name','last_name'])
+            profile.phone_number = profile_form.cleaned_data['phone_number']
+            profile.address_line1 = profile_form.cleaned_data['address_line1']
+            profile.address_line2 = profile_form.cleaned_data['address_line2']
+            profile.city = profile_form.cleaned_data['city']
+            profile.country = profile_form.cleaned_data['country']
+            profile.post_code = profile_form.cleaned_data['post_code']
+            profile.save()#update_fields=['level_of_study','university','subject'])
+            return redirect('profile')
+        else:
+            print profile_form.errors
+            return render(request, 'account/profile.html', {'form': profile_form, 'error': 'true'})
+    else:
+        print 'GET'
+        data = {'user_group': user.groups.all()[0], 'email': user.email, 'first_name': user.first_name, 'last_name': user.last_name, 'username': user.username,
+                'phone_number': profile.phone_number, 'address_line1':profile.address_line1,
+                'address_line2': profile.address_line2, 'city':profile.city,
+                'country':profile.country, 'post_code':profile.post_code}
+        print data
+        profile_form = EditRegistrationForm(initial=data)
+        #profile_form.fields['email'].widget.attrs['readonly'] = True
+        return render(request, 'account/profile.html', {'form': profile_form})

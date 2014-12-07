@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User, Group
+from django.forms import HiddenInput
 
 __author__ = 'Abdu'
 
@@ -19,6 +20,10 @@ class RegistrationForm(forms.Form):
                                 label="Username",
                                 error_messages={'invalid':"This value may contain only letters, numbers and @/./+/-/_ characters."})
     email = forms.EmailField(label="E-mail")
+
+    first_name = forms.CharField(max_length=25, required=False)
+    last_name = forms.CharField(max_length=25, required=False)
+
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 label="Password")
     password2 = forms.CharField(widget=forms.PasswordInput,
@@ -69,7 +74,7 @@ class RegistrationForm2(RegistrationForm):
     country = forms.CharField(label="Country")
     post_code = forms.CharField(label="Postcode")
 
-class RegistrationForm3(RegistrationForm):
+class RegistrationFormWithAddress(RegistrationForm):
     user_group = forms.ModelChoiceField(queryset=Group.objects.all())
     address_line1 = forms.CharField(label="Address Line1", required=False)
     address_line2 = forms.CharField(label="Address Line2", required=False)
@@ -78,17 +83,14 @@ class RegistrationForm3(RegistrationForm):
     post_code = forms.CharField(label="Postcode", required=False)
 
     def clean(self):
-        cleaned_data = super(RegistrationForm3, self).clean()
+        cleaned_data = super(RegistrationFormWithAddress, self).clean()
         cleaned_sub_data = self.cleaned_data
         cleaned_data.update(cleaned_sub_data)
         user_group = cleaned_data.get("user_group")
-        subject = cleaned_data.get("subject")
-        print user_group
+
         print cleaned_data
         if user_group == Group.objects.get(name='Food Bank'):
-            # Only do something if both fields are valid so far.
             print 'yep'
-            print cleaned_data.get("address_line1", None)
             if cleaned_data.get("address_line1", None) and  cleaned_data.get("city", None) \
             and cleaned_data.get("country", None) and  cleaned_data.get("post_code", None):
                 print 'oo'
@@ -96,3 +98,31 @@ class RegistrationForm3(RegistrationForm):
             else:
                 raise forms.ValidationError("You need to provide an address for a Food Bank user group!.")
 
+        if user_group == Group.objects.get(name='Volunteer'):
+            if cleaned_data.get("first_name", None) and  cleaned_data.get("last_name", None):
+                return self.cleaned_data
+            else:
+                raise forms.ValidationError("First and Last name are required for a volunteer account!.")
+
+
+class EditRegistrationForm(RegistrationFormWithAddress):
+
+    password1 = None
+    password2 = None
+
+    def __init__(self, *args, **kwargs):
+        super(EditRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['readonly'] = 'True'
+        self.fields['username'].widget.attrs['readonly'] = 'True'
+        #self.fields['user_group'].widget.attrs['disabled'] = 'True'
+        self.fields['user_group'].widget = HiddenInput()
+
+        #resume.fields['email'].widget.attrs['readonly'] = True
+    def clean_email(self):
+        return self.cleaned_data['email']
+
+    def clean_username(self):
+        return self.cleaned_data['username']
+
+    def clean_user_group(self):
+        return self.cleaned_data['user_group']
