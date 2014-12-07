@@ -72,8 +72,7 @@ def login_user(request):
             print 'invalid'
             print login_form.errors
             return render(request, 'account/login.html', {'form': login_form, 'error': 'true'})
-    elif request.GET:
-        return render(request, "account/login.html", {"form": login_form, "next": request.GET.get('next')})
+    return render(request, "account/login.html", {"form": login_form, "next": request.GET.get('next')})
 
 @login_required(login_url='/login/')
 def logout_user(request):
