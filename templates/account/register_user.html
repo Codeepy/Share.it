@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}User Registration{% endblock %}
+{% block title %}User SignUp{% endblock %}
 
 {% load staticfiles %}
 
@@ -11,7 +11,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="text-center">Volunteer Registration</h1>
+                    <h1 class="text-center">Volunteer SignUp</h1>
                 </div>
                 <div class="modal-body row">
                     <form data-toggle="validator" {% comment %}id="myForm"{% endcomment %} class="col-md-12" role="form" method="post" action="/account/registeruser/">
@@ -61,12 +61,12 @@
                                     <span class="help-block">{{ form.phone_number.errors }}</span>
                                 </div>
 
-                                <input type="text" id="phone_number" name="phone_number" placeholder="Phone (9999999999)" class="form-control" value="{{ form.phone_number.value|default_if_none:""}}" required>
+                                <input type="text" id="phone_number" name="phone_number" placeholder="Phone (9999999999)" class="form-control" value="{{ form.phone_number.value|default_if_none:}}" required>
 
                             </div>
 
                             <div class="form-group">
-                                <button class="btn btn-primary btn-lg btn-block">Register</button>
+                                <button class="btn btn-primary btn-lg btn-block">SignUp</button>
                             </div>
                         </fieldset>
                     </form>

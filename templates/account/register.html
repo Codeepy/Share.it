@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Registration{% endblock %}
+{% block title %}SignUp{% endblock %}
 {% load css_class_filter %}
 {% load staticfiles %}
 
@@ -11,7 +11,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="text-center">User Registration</h1>
+                    <h1 class="text-center">User SignUp</h1>
                 </div>
                 <div class="modal-body row">
                     <form data-toggle="validator" {% comment %}id="myForm"{% endcomment %} class="col-md-12" role="form" method="post" action="/account/register/">
@@ -95,7 +95,7 @@
                                 <input type="text" id="post_code" name="post_code" placeholder="PostCode*" class="form-control" value="{{ form.post_code.value|default_if_none:""}}" >
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary btn-lg btn-block">Register</button>
+                                <button class="btn btn-primary btn-lg btn-block">SignUp</button>
                             </div>
                         </fieldset>
                     </form>
