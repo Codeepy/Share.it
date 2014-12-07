@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQs{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+    <section id="login" class="container">
+
+        <div class="login" id="login-box">
+            <div class="header">Sign In</div>
+            <form action="/accounts/login/" method="post">
+                <div class="body bg-gray">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form.name_of_field.errors }}
+                    {% if next %}
+                        <input type="hidden" name="next" value="{{ next }}"/>
+                    {% endif %}
+                    <div class="form-group">
+                        {{ form.username.errors }}
+                        <input type="text" name="username" class="form-control" placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.errors }}
+                        <input type="password" name="password" class="form-control" placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button type="submit" class="btn bg-olive btn-block">Sign me in</button>
+                    <p><a href="#">I forgot my password</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
