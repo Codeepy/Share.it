@@ -31,13 +31,20 @@ body {
 }
 
 h2 {
-    color:#ff0000;
+    color:darkred;
     font-weight:900;
 
 }
 h3{
-    color:#159238;
+    color:#ffffff;
 
+}
+.new-h4{
+    color:#ffffff;
+}
+
+.bold-p{
+    font-size: larger;
 }
  /*=====================================
   PRELOADER STYLES
