@@ -25,18 +25,38 @@
                         <h3>DONATE & SHARE </h3>
                         <h2 ><i class="fa fa-code" ></i><span>FOOD</span><i class="fa fa-code"></i></h2>
                         <div class="col-lg-12 col-md-12 col-sm-12" >
-                            <div class="form-group">
-                                <input type="text" class="form-control" required="required" placeholder="Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" required="required" placeholder="Email address">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" required="required" placeholder="Amount in $">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block btn-lg">DONATE & SHARE.IT</button>
-                            </div>
+                            <form data-toggle="validator" role="form" method="post" action="/donation/">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="has-error">
+                                        <span class="help-block">
+                                            {{ form.non_field_errors }}
+                                            {{ form.name_of_field.errors }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="has-error">
+                                        <span class="help-block">{{ form.name.errors }}</span>
+                                    </div>
+                                    <input name="name" type="text" class="form-control" placeholder="Name" value="{{ form.name.value|default_if_none:""}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="has-error">
+                                        <span class="help-block">{{ form.email.errors }}</span>
+                                    </div>
+                                    <input name="email" type="text" class="form-control" placeholder="Email address" value="{{ form.email.value|default_if_none:""}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="has-error">
+                                        <span class="help-block">{{ form.amount.errors }}</span>
+                                    </div>
+                                    <input name="amount" type="text" class="form-control" placeholder="Amount in GBP" value="{{ form.amount.value|default_if_none:""}}" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block btn-lg">DONATE & SHARE.IT</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
