@@ -333,7 +333,8 @@ margin-top: 20px;
 }
 
 #contact .form-control {
-    background-color:transparent;
+    /*background-color:transparent;*/
+    background-color: black;
     height:40px;
 }
 
