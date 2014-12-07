@@ -16,4 +16,12 @@ urlpatterns = patterns('',
     url(r'^register/', views.register, name='register'),
     url(r'^api/', views.api, name='api'),
     url(r'^map/', views.map, name='map'),
+
+    url(r'^broadcast/', 'share_it.views.broadcast', name='broadcast'),
+    url(r'^notifications/', 'share_it.views.notifications', name='notifications'),
+    url(r'^account/registeruser/', 'share_it.views.register_user', name='register_user'),
+    url(r'^account/registerfoodbank/', 'share_it.views.register_foodbank', name='register_foodbank'),
+    url(r'^account/register/', 'share_it.views.register', name='register'),
+    url(r'^account/login/', 'share_it.views.login_user', name='login_user'),
+    url(r'^account/logout/', 'share_it.views.logout_user', name='logout_user'),
 )

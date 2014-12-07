@@ -1,0 +1,67 @@
+<html>
+<head>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<link href="css/bootstrap-switch.css" rel="stylesheet">
+<script src="docs/js/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="docs/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-switch.js"></script>
+</head>
+<body>
+<div class="container">
+
+<label for='myInput'>Subscribe</label><input id='switch-state' name='myInput' type='checkbox'/>
+<!--input id="switch-state" name="download-version" checked="" data-on-text="ON" data-off-text="OFF" type="checkbox" text="subscribe"-->
+<br>
+Chat Output
+<div id=box></div>
+</div>
+<script src="http://cdn.pubnub.com/pubnub-3.7.1.min.js"></script>
+<script>
+var pubnub =  PUBNUB.init({
+    subscribe_key:"sub-c-9133d8cc-73eb-11e4-ad9d-02ee2ddab7fe",
+    uuid:'2'
+});
+
+    var box = $('#box'), channel = 'foodbank_broadcast';
+
+function subscribe() {
+pubnub.subscribe({
+    channel  : channel,
+    connect: function() {console.log('connected')},
+    disconnect: function() {console.log('disconnected')},
+    callback : function(text) {
+        box.innerHTML = (''+text).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+    }
+});
+}
+
+function unsubscribe() {
+pubnub.unsubscribe({
+    channel  : channel
+});
+
+}
+
+</script>
+<script>
+//$("#switch-state").bootstrapSwitch();
+$('#switch-state').change(function() {
+    // this represents the checkbox that was checked
+    // do something with it
+	// $this will contain a reference to the checkbox   
+    if (this.checked) {
+	console.log('checked')
+	subscribe();	
+        // the checkbox was checked 
+    } else {
+        // the checkbox was unchecked
+		console.log('unchecked')
+		unsubscribe();
+    }
+});
+</script>
+</body>
+</html>

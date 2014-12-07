@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Map{% endblock %}
+{% block title %}Food Bank Network{% endblock %}
 
 {% load staticfiles %}
 
 {% block head_block %}
     <style>
         html, body, #map-canvas {
-            height: 630px;
+            height: 435px;
             margin: 0px;
             padding: 0px
         }
@@ -15,7 +15,7 @@
             float: right;
         }
         #directions-panel {
-            height: 600px;
+            height: 400px;
             font-size: 13px;
             overflow: auto;
         }
@@ -26,13 +26,12 @@
             width: 100%;
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     <script>
         var directionsDisplay;
         var geocoder;
         var infowindow, infowindowLarge;
         var pos, marker, map;
-        var defaultZoom = 12;
+        var defaultZoom = 13;
         var origins = [];
         var destinations = [];
 
@@ -46,7 +45,7 @@
             directionsDisplay.setMap(map);
             directionsDisplay.setPanel(document.getElementById('directions-panel'));
 
-            infowindow = new google.maps.InfoWindow({maxWidth: 100});
+            infowindow = new google.maps.InfoWindow({maxWidth: 200});
             infowindowLarge = new google.maps.InfoWindow({maxWidth: 200});
 
             // Try HTML5 geolocation
@@ -237,13 +236,101 @@
 
         window.onload = loadScript;
     </script>
-
+    <style>
+        input {
+            width: 100%;
+            padding-left: 10px;
+        }
+        #box {
+            height: 150px;
+            font-size: 12px;
+            overflow: auto;
+        }
+        .card {
+            box-shadow: 0 1px 0 2px rgba(0,0,0,0.1);
+            border-radius: 1px;
+            -webkit-transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s;
+        }
+        .padding-top-10 {
+            padding-top: 10px;
+        }
+        .margin-bottom-10 {
+            margin-bottom: 10px !important;
+        }
+        .margin-bottom-20 {
+            margin-bottom: 20px !important;
+        }
+        .margin-top-20 {
+            margin-top: 20px !important;
+        }
+        .white {
+            background-color: #fff;
+        }
+    </style>
 {%  endblock %}
 
 {% block body_block %}
-    <div id="panel">
-        <div id="directions-panel"></div>
-        <button id="close-button" type="button" onclick="resetView()">Close</button>
+<section>
+    <div class="padding_top">
+        <div id="panel">
+            <div id="directions-panel"></div>
+            <button id="close-button" type="button" class="btn btn-danger" onclick="resetView()">Close Route View</button>
+        </div>
+        <div id="map-canvas"></div>
+        <div class="container">
+            <div class="row margin-top-20 margin-bottom-20">
+                <div class="col-lg-6 col-md-6 padding-top-10">
+                    Click the green button to share food*
+                    <p>
+                        <input id="phone" class="margin-top-20 margin-bottom-10" placeholder="Phone number (required)" />
+                        <input id="address" class="margin-bottom-20" placeholder="Address" />
+                        <button type="submit" class="btn btn-success btn-block btn-lg" onclick="toggleBounce()">I HAVE A FOOD</button>
+                    </p>
+                    <span style="font-size: 11px;">
+                        *By clicking the button you agree to share your location for food distribution purpose.<br>
+                        Please use the latest version of Google Chrome or Mozilla Firefox and allow location sharing.
+                    </span>
+                </div>
+                {% if user and not user.is_anonymous %}
+                <div class="col-lg-6 col-md-6 card padding-top-10" style="background: #FF8000;">
+                      Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
+                      <div><input id="input" class="margin-top-20 margin-bottom-20" placeholder="Type your message here and press Enter to send" /></div>
+                      <div id="box" class="white card margin-bottom-20"></div>
+                      <script src=http://cdn.pubnub.com/pubnub.min.js></script>
+                      <script>
+                          (function(){
+                              var box = PUBNUB.$('box'), input = PUBNUB.$('input'), channel = 'foodbank_public';
+                              PUBNUB.subscribe({
+                                  channel  : channel,
+                                  callback : function(text) {
+                                      if (String(text).indexOf('<b style="color:red;">@{{ user.username }}</b>:') > -1)
+                                        box.innerHTML =
+                                                '<div style="text-align:right; color:blue; background-color:#DDD; padding:0 10px;">' +
+                                                String(text).replace('<b style="color:red;">@{{ user.username }}</b>:', '') +
+                                                '</div>' + box.innerHTML
+                                      else
+                                        box.innerHTML = '<div style="padding:0 10px;">' + text + '</div>' + box.innerHTML
+                                  }
+                              });
+                              PUBNUB.bind( 'keyup', input, function(e) {
+                                  (e.keyCode || e.charCode) === 13 && PUBNUB.publish({
+                                      channel : channel, message : '<b style="color:red;">@{{ user.username }}</b>: ' + input.value, x : (input.value='')
+                                  })
+                              } )
+                          })()
+                    </script>
+                </div>
+                {% else %}
+                <div class="col-lg-6 col-md-6 padding-top-10">
+                    Please log in to access chat!
+                    <a href="/account/login/?next={{request.path}}">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">LOGIN</button>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <div id="map-canvas"></div>
+</section>
 {% endblock %}
