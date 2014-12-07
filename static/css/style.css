@@ -113,7 +113,7 @@ background-color: #fff;
     background-size: cover;
 }
     #home h1 {
-        padding:130px 20px 20px 0px;
+        padding:100px 20px 20px 0px;
         color:Green;
         font-size:40px;
         font-weight:900;
@@ -145,16 +145,16 @@ background-color: #fff;
         color:#fff;
     }
     .div-trans {
-padding-top: 5px;
-background-color: rgba(0, 0, 0, 0.5);
-min-height: 330px;
-margin-top: 150px;
-color: #fff;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
-margin-bottom: 30px;
-}
+        padding-top: 5px;
+        background-color: rgba(0, 0, 0, 0.5);
+        min-height: 330px;
+        margin-top: 120px;
+        color: #fff;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+    }
         .div-trans i {
             margin-left: 10px;
             margin-right: 10px;
