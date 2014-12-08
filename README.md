@@ -6,7 +6,7 @@ The World's First Crowd-Fooding Platform!
 
 ## Description
 
-**FOOD FOR EVERYONE**
+**"FOOD FOR EVERYONE"**
 * Every day about 21,000 people die of hunger or hunger-related causes
 * Every year approximately one third of the food produced in the world, which weighs around 1.3 billion tonnes, are either wasted or get lost
 * Poor nutrition causes nearly 45% of deaths in children under five and approximately 3.1 million children die each year
@@ -15,7 +15,7 @@ The World's First Crowd-Fooding Platform!
 
 **What is Share.it and it's use?**
 <br>
-Share.it is a web-app, which enables any person to engage and lead the "Food For Everyone" movement. Using Share.it you can:
+Share.it is a web application, which enables any person to engage and lead the "Food For Everyone" movement. <br>Using Share.it you can:
 * Share food or leftovers with people who may need them
 * Find the nearest food banks and get directions to them
 * Find other volunteers just like you and collaborate with them to lead your own movement
@@ -26,7 +26,7 @@ All the things which you can do in Share.it, make it the world's first true Crow
 
 ## Screenshots
 
-We are using NginX web server to serve Share.It web application. The back-end system is based-on Django web framework with SQLite database.
+We are using NginX web server to serve Share.it web application. The back-end system is based-on Django web framework with SQLite database.
 
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-terminal.png "Koding")
 ![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-ide.png "Koding")
