@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     url(r'^account/profile/$', 'share_it.views.profile', name='profile'),
     url(r'^account/login/', 'share_it.views.login_user', name='login_user'),
     url(r'^account/logout/', 'share_it.views.logout_user', name='logout_user'),
+    url(r'^api/latlong/', 'share_it.views.latlong_list', name='latlong_list'),
 )

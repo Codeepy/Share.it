@@ -5,8 +5,18 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<section>
-    <div class="padding_top">
+<section id="error" class="container text-center padding_top">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4"><img alt="Mashape" src="/static/img/mashape.png" class="img-responsive"></div>
+        <div class="col-md-6" style="text-align: left">
+            <h1>401: Unauthorized</h1>
+            <h3>Oh, no! It seems you are trying to access one of our API's but unfortunately it has been captured by this Ape!</h3>
+            <h3>But no worries, you still can find it by clicking the button below. Don't forget to bring "banana" with you!!</h3>
+            <br>
+            <a href="https://www.mashape.com/codeepy/codeepy-share-it?&amp;utm_campaign=mashape5-embed&amp;utm_medium=button&amp;utm_source=codeepy-share-it&amp;utm_content=anchorlink&amp;utm_term=text-light" target="_blank"><img alt="Mashape" src="https://d1g84eaw0qjo7s.cloudfront.net/images/badges/badge-text-light-e9e35ecb.png" height="38" width="200"></a>
+        </div>
+        <div class="col-md-1"></div>
     </div>
-</section>
+</section><!--/#error-->
 {% endblock %}

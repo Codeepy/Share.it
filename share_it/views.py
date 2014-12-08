@@ -201,3 +201,24 @@ def profile(request):
         profile_form = EditRegistrationForm(initial=data)
         #profile_form.fields['email'].widget.attrs['readonly'] = True
         return render(request, 'account/profile.html', {'form': profile_form})
+        
+class JSONResponse(HttpResponse):
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+        
+def latlong_list(request):
+    if request.META.get('HTTP_X_MASHAPE_PROXY_SECRET', "") == '7DydAqe5WnQYGFfmNrjmYY346xWL6l0z5hc2v3nPkUoX6mM6sm':
+        if request.method == 'GET':
+            rformat = request.GET.get('format', "default")
+
+            if rformat == "default":
+                full_url = request.build_absolute_uri(None)
+                return render(request, "api.html", {"url": full_url})
+            elif rformat == "json":
+                latlongs = Profile.objects.all()
+                serializer = ProfileSerializer(latlongs, many=True)
+                return JSONResponse(serializer.data)
+    else:
+        return render(request, "401.html")
