@@ -2,9 +2,9 @@
 
 The World's First Crowd-Fooding Platform!
 
-## Description
-
 [![Koding Hackathon](https://raw.githubusercontent.com/Codeepy/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
+
+## Description
 
 **FOOD FOR EVERYONE**
 * Every day about 21,000 people die of hunger or hunger-related causes
