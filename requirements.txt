@@ -1,5 +1,6 @@
 Django==1.7.1
 argparse==1.2.1
+djangorestframework==3.0.0
 pubnub==3.5.2
 pycrypto==2.6.1
 requests==2.5.0
