@@ -7,8 +7,12 @@ http://dumbastic.koding.io/
 [![Koding Hackathon](https://raw.githubusercontent.com/Codeepy/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
 
 ## Description
+This is a web-app named, "SHARE.IT", which is designed to be world's first Crowd-fooding social platform. Is 'Crowd-fooding' unknown to you? Well, it is a new term used by our team, Codeepy, in order to deal with the challenges of food waste and food scarcity in developing countries.
+Share.it is the true Crowd-fooding platform which enables any person (termed as 'Volunteer' in the app) to collaborate with any other person (other volunteers) and food banks to lead the movement of "Food For Everyone".
+Using Share.it you can share food (any food even your good leftovers) with people who might need it or share food with other volunteers, who may know people in need of food. The app just does not enable you to share but also allow you to seek food near your location if you need any.
+The whole idea behind the app is to create awareness of food waste and its consequence, and to reduce the food waste by creating simple socialising concept.
 
-**"FOOD FOR EVERYONE"**
+**MOTO: "FOOD FOR EVERYONE"**
 * Every day about 21,000 people die of hunger or hunger-related causes
 * Every year approximately one third of the food produced in the world, which weighs around 1.3 billion tonnes, are either wasted or get lost
 * Poor nutrition causes nearly 45% of deaths in children under five and approximately 3.1 million children die each year
@@ -27,6 +31,10 @@ Share.it is a web application, which enables any person to engage and lead the "
 All the things which you can do in Share.it, make it the world's first true Crowd-Fooding platform!
 
 ## Screenshots
+**Different Features of Share.it**
+<br>
+
+
 
 We are using NginX web server to serve Share.it web application. The back-end system is based-on Django web framework with SQLite database.
 
