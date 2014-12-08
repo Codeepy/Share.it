@@ -249,7 +249,7 @@
                     var result = JSON.parse(xhr.responseText);
                     if (result.total_hits) {
                         var nutritionTable = "<div class='table-responsive'><table class='table table-bordered table-condensed'>" +
-                                "<thead style='background-color: #EEE; color: black'><tr><td>Name</td><td>Brand</td><td>Calory</td><td>Fat</td><td>Qty</td><td>Unit</td></tr></thead><tbody>";
+                                "<thead style='background-color: #EEE; color: black'><tr><td>Name</td><td>Brand</td><td>Calorie(s)</td><td>Fat</td><td>Qty</td><td>Unit</td></tr></thead><tbody>";
                         for (var i=0; i<result.hits.length; i++) {
                             nutritionTable += "<tr>"
                             nutritionTable += "<td>" + result.hits[i].fields.item_name + "</td>";
