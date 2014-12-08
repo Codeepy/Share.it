@@ -10,7 +10,7 @@ http://dumbastic.koding.io/
 This is a web-app named, "SHARE.IT", which is designed to be world's first Crowd-fooding social platform. Is 'Crowd-fooding' unknown to you? Well, it is a new term used by our team, Codeepy, in order to deal with the challenges of food waste and food scarcity in developing countries.
 Share.it is the true Crowd-fooding platform which enables any person (termed as 'Volunteer' in the app) to collaborate with any other person (other volunteers) and food banks to lead the movement of "Food For Everyone".
 Using Share.it you can share food (any food even your good leftovers) with people who might need it or share food with other volunteers, who may know people in need of food. The app just does not enable you to share but also allow you to seek food near your location if you need any.
-The whole idea behind the app is to create awareness of food waste and its consequence, and to reduce the food waste by creating simple socialising concept.
+The whole idea behind the app is to create awareness of food waste and its consequence, and provide a novel solution to reduce the food waste by creating simple socialising concept.
 
 **MOTO: "FOOD FOR EVERYONE"**
 * Every day about 21,000 people die of hunger or hunger-related causes
