@@ -238,16 +238,30 @@
         function nutritionSearch(){
             var foodName = document.getElementById('foodName').value;
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://api.nutritionix.com/v1_1/search/"+foodName, true);
-            xhr.setRequestHeader("appId", "e176d0f0");
-            xhr.setRequestHeader("appKey", "1e368f4f02473472cf1bfa93e3b6adec");
-            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.open("GET", "https://api.nutritionix.com/v1_1/search/" + foodName +
+                    "?fields=item_name%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=e176d0f0&appKey=1e368f4f02473472cf1bfa93e3b6adec", true);
+{#            xhr.setRequestHeader("appId", "e176d0f0");#}
+{#            xhr.setRequestHeader("appKey", "1e368f4f02473472cf1bfa93e3b6adec");#}
+{#            xhr.setRequestHeader("Content-Type", "application/json");#}
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4) {
                     var result = JSON.parse(xhr.responseText);
-                    if (result.objectId) {
-                        alert("Search yielded " + result.count + " result(s)");
+                    if (result.total_hits) {
+                        var nutritionTable = "<div class='table-responsive'><table class='table table-bordered table-condensed'>" +
+                                "<thead style='background-color: #EEE; color: black'><tr><td>Name</td><td>Brand</td><td>Calory</td><td>Fat</td><td>Qty</td><td>Unit</td></tr></thead><tbody>";
+                        for (var i=0; i<result.hits.length; i++) {
+                            nutritionTable += "<tr>"
+                            nutritionTable += "<td>" + result.hits[i].fields.item_name + "</td>";
+                            nutritionTable += "<td>" + result.hits[i].fields.brand_name + "</td>";
+                            nutritionTable += "<td>" + result.hits[i].fields.nf_calories + "</td>";
+                            nutritionTable += "<td>" + result.hits[i].fields.nf_total_fat + "</td>";
+                            nutritionTable += "<td>" + result.hits[i].fields.nf_serving_size_qty + "</td>";
+                            nutritionTable += "<td>" + result.hits[i].fields.nf_serving_size_unit + "</td>";
+                            nutritionTable += "</tr>"
+                        }
+                        nutritionTable += "</tbody></table></div>";
+                        document.getElementById("nutrition").innerHTML = nutritionTable;
                     }
                 }
             }
@@ -322,6 +336,8 @@
                     <h4>Check nutritional properties of your food</h4>
                     <input id="foodName" class="margin-top-10 margin-bottom-10" style="color: #000000"  placeholder="Type the name of the food. Eg. Pizza"  required>
                     <button id="nutriSearch" type="submit" class="btn btn-success btn-block btn-lg" onclick="nutritionSearch();">Find Nutritional Values</button>
+                    <br>
+                    <div id="nutrition"></div>
                 </div>
                 <div class="col-lg-6 col-md-6 div-trans padding-top-10" style="margin-top: 10px; color: #ffffff;">
                     Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
