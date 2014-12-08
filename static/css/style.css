@@ -388,3 +388,11 @@ background-size: cover;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
 }
+
+.home-new-header{
+    padding-top: 40px;
+}
+
+.underline{
+    text-decoration: underline;
+}
