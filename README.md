@@ -2,6 +2,9 @@
 
 The World's First Crowd-Fooding Platform!
 
+http://dumbastic.koding.io/<br>
+http://shareit.codeepy.com/
+
 [![Koding Hackathon](https://raw.githubusercontent.com/Codeepy/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
 
 ## Description
