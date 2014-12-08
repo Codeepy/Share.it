@@ -33,6 +33,9 @@ All the things which you can do in Share.it, make it the world's first true Crow
 ## Screenshots
 **Different Features of Share.it**
 <br>
+![Homepage](http://i.imgur.com/jruVXP5.png "Homepage")
+Share.it homepage
+
 
 
 
@@ -44,10 +47,6 @@ Development process with git
 
 ![nginx](http://i.imgur.com/YgT10Q1.png "nginx")
 Nginx running on Koding VM
-
-
-![Homepage](http://i.imgur.com/jruVXP5.png "Homepage")
-Share.it homepage
 
 
 ## APIs used
