@@ -326,7 +326,7 @@
                     Click the green button to share food*
                     <p>
                         <input id="foodType" class="margin-top-10 margin-bottom-10" style="color: #000000" placeholder="Please describe your food to share.... (*required)"  required>
-                        <button id="shareFood" type="submit" class="btn btn-success btn-block btn-lg" onclick="publish();">SHARE.IT</button>
+                        <button id="shareFood" type="submit" class="btn btn-success btn-block btn-lg" onclick="pub();">SHARE.IT</button>
                     </p>
                     <span style="font-size: 11px;">
                         *By clicking the button you agree to share your location for food distribution purpose.<br>
@@ -398,53 +398,25 @@
         })()
     </script>
     <script>
-         function publish() {
-             if (document.getElementById('foodType').validity.valid) {
-                 var shareButton = document.getElementById("shareFood");
+        var shareButton = document.getElementById("shareFood");
 
+        pubnub = PUBNUB.init({
+             publish_key: 'pub-c-c2f686ee-4510-489e-b5b5-54c8adb67b3f',
+             subscribe_key: 'sub-c-176de224-73e3-11e4-bfbc-02ee2ddab7fe'
+        })
+
+        function pub() {
+             if (document.getElementById('foodType').validity.valid) {
                  if (shareButton.innerHTML == "SHARE.IT") {
                      shareButton.innerHTML = "STOP SHARING";
 
-                     pubnub = PUBNUB.init({
-                         publish_key: 'pub-c-c2f686ee-4510-489e-b5b5-54c8adb67b3f',
-                         subscribe_key: 'sub-c-176de224-73e3-11e4-bfbc-02ee2ddab7fe'
-                     })
-
-                     function pub() {
-                         var foodType = document.getElementById("foodType").value;
-                         pubnub.publish({
-                             channel: "foodbank_sharefood",
-                             message: pos.lat() + ";" + pos.lng() + ";{{ user.username }};" + foodType,
-                             callback: function (m) {
-                                 console.log(m)
-                             }
-                         })
-                     }
-
-                     pubnub.subscribe({
+                     var foodType = document.getElementById("foodType").value;
+                     pubnub.publish({
                          channel: "foodbank_sharefood",
-                         message: function (message, env, channel) {
-                             var msg = JSON.stringify(message).replace(/"/g, '').split(";");
-                             var foodPos = new google.maps.LatLng(msg[0], msg[1]);
-                             var foodIcon = '/static/img/marker/hotfoodcheckpoint.png';
-                             infowindow.setContent('<b>@' + msg[2] + '</b> says "' + msg[3] + '"');
-
-                             if (!foodPos.equals(pos)) {
-                                 var foodMarker = new google.maps.Marker({
-                                     position: foodPos,
-                                     map: map,
-                                     animation: google.maps.Animation.DROP,
-                                     icon: foodIcon
-                                 });
-                                 foodMarker.setAnimation(google.maps.Animation.BOUNCE);
-                                 infowindow.open(map, foodMarker);
-                             }
-                             else {
-                                 marker.setAnimation(google.maps.Animation.BOUNCE);
-                                 infowindow.open(map, marker);
-                             }
-                         },
-                         connect: pub
+                         message: pos.lat() + ";" + pos.lng() + ";{{ user.username }};" + foodType,
+                         callback: function (m) {
+                             console.log(m)
+                         }
                      })
                  }
                  else if (shareButton.innerHTML == "STOP SHARING") {
@@ -455,7 +427,36 @@
              else {
                  document.getElementById('foodType').style.border = "1px solid red";
              }
-         };
+        }
+        (function() {
+             pubnub.subscribe({
+                 channel: "foodbank_sharefood",
+                 message: function (message, env, channel) {
+                     var msg = JSON.stringify(message).replace(/"/g, '').split(";");
+                     if (msg) {
+                         var foodPos = new google.maps.LatLng(msg[0], msg[1]);
+                         var foodIcon = '/static/img/marker/hotfoodcheckpoint.png';
+                         infowindow.setContent('<b>@' + msg[2] + '</b> says "' + msg[3] + '"');
+
+                         if (!foodPos.equals(pos)) {
+                             var foodMarker = new google.maps.Marker({
+                                 position: foodPos,
+                                 map: map,
+                                 animation: google.maps.Animation.DROP,
+                                 icon: foodIcon
+                             });
+                             foodMarker.setAnimation(google.maps.Animation.BOUNCE);
+                             infowindow.open(map, foodMarker);
+                         }
+                         else {
+                             marker.setAnimation(google.maps.Animation.BOUNCE);
+                             infowindow.open(map, marker);
+                         }
+                     }
+                 },
+                 connect: pub
+             })
+        })()
     </script>
     <script>
         if (String("{{ user.username }}")) {
