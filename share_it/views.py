@@ -3,14 +3,16 @@ from Pubnub import Pubnub
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 
 # Create your views here.
 from django.template import RequestContext
 from django.contrib.auth.models import User, Group
+from rest_framework.renderers import JSONRenderer
 from share_it.forms import RegistrationForm, RegistrationForm2, RegistrationFormWithAddress, EditRegistrationForm
 from share_it.models import VolunteerProfile, FoodBankProfile, Profile
+from share_it.serializer import ProfileSerializer
 
 pubnub = Pubnub(publish_key="pub-c-04ece9e5-b55d-4c71-b157-a43e178af836",
                 subscribe_key="sub-c-9133d8cc-73eb-11e4-ad9d-02ee2ddab7fe",
