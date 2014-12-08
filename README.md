@@ -19,8 +19,10 @@ NginX web server
 
 ## APIs used
 
-* Google Map Javascript API: https://developers.google.com/maps/documentation/javascript/
-* PubNub: http://www.pubnub.com/developers/
-* JustGiving (from 3Scale: https://apimanagement.justgiving.com/)
-* Disqus (from APItools: https://www.apitools.com/apis/disqus)
-* Share.It (from Mashape: https://www.mashape.com/codeepy/share-it)
+API | URL | Description
+--- | --- | ---
+Google Map Javascript API | https://developers.google.com/maps/documentation/javascript/ | We use this API to display Food Banks, Volunteers, and Food Broadcast's locations
+PubNub | http://www.pubnub.com/developers/ | We use this API to provide real-time chat and food broadcast
+JustGiving <br>(from 3Scale) | https://apimanagement.justgiving.com/ | We use this API to provide donation payment service
+Disqus <br>(from APItools) | https://www.apitools.com/apis/disqus | We use this API to facilitate commenting in Contact page
+Share.It <br>(deployed in Mashape) | https://www.mashape.com/codeepy/share-it | We developed this API to serve and retrieve the Volunteers' locations
