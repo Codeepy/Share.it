@@ -34,7 +34,7 @@ All the things which you can do in Share.it, make it the world's first true Crow
 **Different Features of Share.it**
 <br>
 ![Homepage](http://i.imgur.com/jruVXP5.png "Homepage")
-Share.it Homepage
+Share.it Homepage. The homepage contains the tweets from #Koding #Hackaathon event but actually that feature is supposed to show the tweets regarding 'Share.it' app and its activities by different users. In future if this apps gets viral (widely accepted) and public, then the tweets will be related to 'Share.it'.
 
 ![About](http://i.imgur.com/TuDynUo.png "About")
 Share.it About
