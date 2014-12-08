@@ -26,3 +26,4 @@ PubNub | http://www.pubnub.com/developers/ | We use this API to provide real-tim
 JustGiving <br>(from 3Scale) | https://apimanagement.justgiving.com/ | We use this API to provide donation payment service
 Disqus <br>(from APItools) | https://www.apitools.com/apis/disqus | We use this API to facilitate commenting in Contact page
 Share.It <br>(deployed in Mashape) | https://www.mashape.com/codeepy/share-it | We developed this API to serve and retrieve the Volunteers' locations
+NutritionIx | http://www.nutritionix.com/api | We used this API to provide nutritional information for shared foods
