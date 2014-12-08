@@ -239,8 +239,8 @@
             var foodName = document.getElementById('foodName')[0].value;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "https://api.nutritionix.com/v1_1/search/"+foodName, true);
-            xhr.setRequestHeader("appId", "your application id");
-            xhr.setRequestHeader("appKey", "your REST API key");
+            xhr.setRequestHeader("appId", "e176d0f0");
+            xhr.setRequestHeader("appKey", "1e368f4f02473472cf1bfa93e3b6adec");
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onreadystatechange = function() {
