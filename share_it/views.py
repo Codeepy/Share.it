@@ -10,14 +10,13 @@ from django.shortcuts import render, render_to_response, get_object_or_404, redi
 from django.template import RequestContext
 from django.contrib.auth.models import User, Group
 from rest_framework.renderers import JSONRenderer
-from share_it.forms import RegistrationForm, RegistrationForm2, RegistrationFormWithAddress, EditRegistrationForm
+from share_it.forms import RegistrationForm, RegistrationForm2, RegistrationFormWithAddress, EditRegistrationForm, PasswordForm
 from share_it.models import VolunteerProfile, FoodBankProfile, Profile
 from share_it.serializer import ProfileSerializer
 
 pubnub = Pubnub(publish_key="pub-c-04ece9e5-b55d-4c71-b157-a43e178af836",
                 subscribe_key="sub-c-9133d8cc-73eb-11e4-ad9d-02ee2ddab7fe",
                 )
-
 
 def _callback(message, channel):
     print(message)
@@ -76,10 +75,38 @@ def login_user(request):
             return render(request, 'account/login.html', {'form': login_form, 'error': 'true'})
     return render(request, "account/login.html", {"form": login_form, "next": request.GET.get('next')})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/account/login/')
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+@login_required(login_url='/account/login/')
+def change_password(request):
+    if request.user.is_authenticated():
+        user = request.user
+        profile = get_object_or_404(Profile, user=user)
+        print profile
+        #check if std_profile exist!! it should.
+
+    password_form = PasswordForm()
+    if request.POST:
+        password_form = PasswordForm(request.POST)
+        if password_form.is_valid():
+            print 'valid'
+            if user.check_password(password_form.cleaned_data['oldpassword']) and \
+                    password_form.cleaned_data['oldpassword'] != password_form.cleaned_data['password1'] and \
+                    password_form.cleaned_data['password1'] == (password_form.cleaned_data['password2']):
+                user.set_password(password_form.cleaned_data['password1'])
+                user.save()
+                return HttpResponseRedirect('/')
+            else:
+                return render(request, "account/password.html", {'form': password_form, 'error': 'true'})
+        else:
+            print 'invalid'
+            print password_form.errors
+            return render(request, "account/password.html", {'form': password_form, 'error': 'true'})
+
+    return render(request, "account/password.html", {"form": password_form})
 
 def register_user(request):
 
@@ -163,7 +190,7 @@ def register(request):
 
     return render(request, "account/register.html", {"form": registration_form})
 
-@login_required
+@login_required(login_url='/account/login/')
 def profile(request):
     print 'member'
     if request.user.is_authenticated():
@@ -179,9 +206,9 @@ def profile(request):
         if profile_form.is_valid():
             print 'Valid'
             #Not pythonic; There should be a better way to do this!! Read about ModelForms and Formsets
-            user.first_name=profile_form.cleaned_data['first_name']
+            user.first_name = profile_form.cleaned_data['first_name']
             user.last_name = profile_form.cleaned_data['last_name']
-            user.save(update_fields=['first_name','last_name'])
+            user.save(update_fields=['first_name', 'last_name'])
             profile.phone_number = profile_form.cleaned_data['phone_number']
             profile.address_line1 = profile_form.cleaned_data['address_line1']
             profile.address_line2 = profile_form.cleaned_data['address_line2']
