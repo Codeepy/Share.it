@@ -235,6 +235,27 @@
             document.body.appendChild(script);
         }
 
+        function nutritionSearch(){
+            var foodName = document.getElementById('foodName')[0].value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://api.nutritionix.com/v1_1/search/"+foodName, true);
+            xhr.setRequestHeader("appId", "your application id");
+            xhr.setRequestHeader("appKey", "your REST API key");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var result = JSON.parse(xhr.responseText);
+                    if (result.objectId) {
+                        alert("saved an object with id: " + result.objectId);
+                    }
+                }
+            }
+
+            var data = JSON.stringify({ message: "Hello world!" });
+            xhr.send(data);
+        }
+
         window.onload = loadScript;
     </script>
     <style>
@@ -300,6 +321,8 @@
                         Please use the latest version of Google Chrome and allow the location sharing.
                     </span>
                     <h4>Check nutritional properties of your food</h4>
+                    <input id="foodName" class="margin-top-10 margin-bottom-10" style="color: #000000"  placeholder="Type the name of the food. Eg. Pizza"  required>
+                    <button id="nutriSearch" type="submit" class="btn btn-success btn-block btn-lg" onclick="nutritionSearch();">Find Nutritional Values</button>
                 </div>
                 <div class="col-lg-6 col-md-6 div-trans padding-top-10" style="margin-top: 10px; color: #ffffff;">
                     Hi <b>{{ user.username }}</b>, type a message to reach our Volunteers.
