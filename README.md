@@ -28,8 +28,9 @@ All the things which you can do in Share.it, make it the world's first true Crow
 
 We are using NginX web server to serve Share.it web application. The back-end system is based-on Django web framework with SQLite database.
 
-![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-terminal.png "Koding")
-![Koding](https://koding.com/a/site.landing/images/slideshow/2x/ss-ide.png "Koding")
+![git](http://i.imgur.com/vdSYlz5.png "git")
+![nginx](http://i.imgur.com/YgT10Q1.png "nginx")
+![Homepage](http://i.imgur.com/jruVXP5.png "Homepage")
 
 ## APIs used
 
