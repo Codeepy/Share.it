@@ -126,3 +126,10 @@ class EditRegistrationForm(RegistrationFormWithAddress):
 
     def clean_user_group(self):
         return self.cleaned_data['user_group']
+
+class PasswordForm(forms.Form):
+    required_css_class = 'required'
+
+    oldpassword = forms.CharField(widget=forms.PasswordInput, label="Current Password")
+    password1 = forms.CharField(widget=forms.PasswordInput, label="New Password")
+    password2 = forms.CharField(widget=forms.PasswordInput, label="New Password (again)")
