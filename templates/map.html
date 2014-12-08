@@ -452,7 +452,7 @@
                     datatype: 'json',
                     success: function (data) {
                         var latlong = JSON.parse(JSON.stringify(data));
-                        var volunteerIcon = '/static/img/marker/male.png';
+                        var volunteerIcon = '/static/img/marker/statue-2.png';
                         var volunteerPos, volunteerMarker;
                         for (var i = 0; i < latlong.length; i++) {
                             volunteerPos = new google.maps.LatLng(latlong[i].lat_position, latlong[i].long_position);
