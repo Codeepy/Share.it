@@ -236,7 +236,7 @@
         }
 
         function nutritionSearch(){
-            var foodName = document.getElementById('foodName')[0].value;
+            var foodName = document.getElementById('foodName').value;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "https://api.nutritionix.com/v1_1/search/"+foodName, true);
             xhr.setRequestHeader("appId", "e176d0f0");
