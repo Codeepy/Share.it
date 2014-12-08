@@ -19,7 +19,8 @@ NginX web server
 
 ## APIs used
 
-* Google Map Javascript API
-* PubNub
-* JustGiving (from 3Scale)
-* Disqus (from APItools)
+* Google Map Javascript API: https://developers.google.com/maps/documentation/javascript/
+* PubNub: http://www.pubnub.com/developers/
+* JustGiving (from 3Scale: https://apimanagement.justgiving.com/)
+* Disqus (from APItools: https://www.apitools.com/apis/disqus)
+* Share.It (from Mashape: https://www.mashape.com/codeepy/share-it)
