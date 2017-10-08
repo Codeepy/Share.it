@@ -6,7 +6,7 @@ http://dumbastic.koding.io/
 
 [![Koding Hackathon](https://raw.githubusercontent.com/Codeepy/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
 
-# Winner of 3Scale API Prize at Koding's Global Hackathon
+## Winner of 3Scale API Prize at Koding's Global Hackathon
 Winner's Announcement Link: https://www.3scale.net/2014/12/3scale-prize-winner-kodings-global-virtual-hackathon/ 
 
 ## Description
