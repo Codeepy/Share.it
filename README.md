@@ -6,6 +6,9 @@ http://dumbastic.koding.io/
 
 [![Koding Hackathon](https://raw.githubusercontent.com/Codeepy/hackathon.submit/master/images/badge.png "Koding Hackathon")](https://koding.com/Hackathon)
 
+# Winner of 3Scale API Prize at Koding's Global Hackathon
+Winner's Announcement Link: https://www.3scale.net/2014/12/3scale-prize-winner-kodings-global-virtual-hackathon/ 
+
 ## Description
 This is a web-app named, "SHARE.IT", which is designed to be world's first Crowd-fooding social platform. Is 'Crowd-fooding' unknown to you? Well, it is a new term used by our team, Codeepy, in order to deal with the challenges of food waste and food scarcity in developing countries.
 Share.it is the true Crowd-fooding platform which enables any person (termed as 'Volunteer' in the app) to collaborate with any other person (other volunteers) and food banks to lead the movement of "Food For Everyone".
